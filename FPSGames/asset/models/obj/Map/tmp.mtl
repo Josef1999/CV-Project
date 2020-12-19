@@ -1,0 +1,102 @@
+# Exported from 3D Builder
+
+newmtl Mat_0
+Kd 1.000000 1.000000 1.000000
+map_Kd newsprnt.jpg.jpeg
+
+newmtl Mat_1
+Kd 1.000000 1.000000 1.000000
+map_Kd grmarble.jpg.jpeg
+
+newmtl Mat_2
+Kd 1.000000 1.000000 1.000000
+map_Kd papyrus.jpg.jpeg
+
+newmtl Mat_3
+Kd 1.000000 1.000000 1.000000
+map_Kd fishfosl.jpg.jpeg
+
+newmtl Mat_4
+Kd 1.000000 1.000000 1.000000
+map_Kd denim.jpg.jpeg
+
+newmtl Mat_5
+Kd 1.000000 1.000000 1.000000
+map_Kd 3110716291_1024x1024_17026833529806663332.png
+
+newmtl Green_0
+Kd 0.129412 0.733333 0.298039
+
+newmtl White_0
+Kd 1.000000 1.000000 1.000000
+
+newmtl Turquoise_0
+Kd 0.000000 0.627451 0.909804
+
+newmtl Mat_6
+Kd 1.000000 1.000000 1.000000
+map_Kd granite.jpg.jpeg
+
+newmtl Mat_7
+Kd 1.000000 1.000000 1.000000
+map_Kd canvas_WithBorder_NoMipMap.png
+
+newmtl Mat_8
+Kd 1.000000 1.000000 1.000000
+map_Kd canvas.jpg.jpeg
+
+newmtl Mat_9
+Kd 1.000000 1.000000 1.000000
+map_Kd grass_WithBorder_NoMipMap.png
+
+newmtl Mat_10
+Kd 1.000000 1.000000 1.000000
+map_Kd whmarble.jpg.jpeg
+
+newmtl Mat_11
+Kd 1.000000 1.000000 1.000000
+map_Kd bltissue.jpg.jpeg
+
+newmtl Mat_12
+Kd 1.000000 1.000000 1.000000
+map_Kd 3862784541_1024x1024_9891466195765460252.png
+
+newmtl Mat_13
+Kd 1.000000 1.000000 1.000000
+map_Kd 3361818804_512x512_12834348560372959244.png
+
+newmtl Mat_14
+Kd 1.000000 1.000000 1.000000
+map_Kd brmarble.jpg.jpeg
+
+newmtl Mat_15
+Kd 1.000000 1.000000 1.000000
+map_Kd 3027709992_1024x1024_16928433130988351204.png
+
+newmtl Mat_16
+Kd 1.000000 1.000000 1.000000
+map_Kd cork.jpg.jpeg
+
+newmtl Mat_17
+Kd 1.000000 1.000000 1.000000
+map_Kd walnut.jpg.jpeg
+
+newmtl Mat_18
+Kd 1.000000 1.000000 1.000000
+map_Kd 709071035_1024x1024_5117785123288832580.png
+
+newmtl Mat_19
+Kd 1.000000 1.000000 1.000000
+map_Kd 2935393125_1024x1024_11941725457658212100.png
+
+newmtl Mat_20
+Kd 1.000000 1.000000 1.000000
+map_Kd 856067106_512x512_7308047544898091396.png
+
+newmtl Mat_21
+Kd 1.000000 1.000000 1.000000
+map_Kd 501228258_512x512_11865535865865525400.png
+
+newmtl Mat_22
+Kd 1.000000 1.000000 1.000000
+map_Kd 57668235_1024x1024_13692110729210842484.png

@@ -350,6 +350,8 @@ int main()
 
 		// 使用shader渲染Gun和Camera（层级模型）
 		renderGunAndCamera(curGun, cameraModel, shader);
+		curGun.Display_HoldGun(camera, shader);
+
 		//renderEnemy(enemyModel, shader);
 
 		// --------------
@@ -590,10 +592,9 @@ void renderGunAndCamera(Gun& curGun, Model& cameraModel, Shader& shader)
 	// 模型转换
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
 
-	modelMatrix = glm::translate(modelMatrix, camera.getPosition());
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(camera.getYaw() / 2), WORLD_UP);
+
 	// 渲染枪支
-	curGun.Display_HoldGun(camera, shader, modelMatrix);
+	// curGun.Display_HoldGun(camera, shader, modelMatrix);
 
 }
 void renderCamera(Model& model, glm::mat4 modelMatrix, Shader& shader)

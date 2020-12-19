@@ -350,7 +350,7 @@ int main()
 
 		// 使用shader渲染Gun和Camera（层级模型）
 		renderGunAndCamera(curGun, cameraModel, shader);
-		curGun.Display_HoldGun(camera, shader);
+		curGun.Display(camera, shader);
 
 		//renderEnemy(enemyModel, shader);
 

@@ -14,6 +14,8 @@ public:
     Timer();
     void StartTimer();
     void StopTimer();
+    void ResetTimer();
+    double QueryTimer();
     double GetTimerMilliSec() const;
     double GetTimerSec() const;
 };

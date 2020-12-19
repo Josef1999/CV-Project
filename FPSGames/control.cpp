@@ -101,11 +101,12 @@ void mouseButton_callback(GLFWwindow* window, int button, int action, int mods)
 {
     if (action == GLFW_PRESS)
     {
-        MouseEvent = button;
+        
         switch (button)
         {
 
         case GLFW_MOUSE_BUTTON_LEFT:
+            MouseEvent = button;
             //Éä»÷
 #ifdef DEBUG_MODE
             std::cout << "Pressed MOUSE LEFT BUTTON" << std::endl;
@@ -124,7 +125,8 @@ void mouseButton_callback(GLFWwindow* window, int button, int action, int mods)
             break;
         }
     }
-    MouseEvent = 0xff;
+    else
+        MouseEvent = 0xff;
     return;
 }
 

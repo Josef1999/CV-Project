@@ -1,29 +1,13 @@
-﻿  control.cpp
+﻿  gun.cpp
 D:\CV-Project\FPSGames\include\learnopengl\model.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-D:\CV-Project\FPSGames\control.cpp(86,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\control.cpp(87,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\control.cpp(91,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\control.cpp(92,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\control.cpp(94,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\control.cpp(95,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\control.cpp(225,56): warning C4305: 'initializing': truncation from 'double' to 'btScalar'
-  gun.cpp
-D:\CV-Project\FPSGames\include\learnopengl\model.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-  main.cpp
-D:\CV-Project\FPSGames\main.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-D:\CV-Project\FPSGames\include\learnopengl\model.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
-D:\CV-Project\FPSGames\main.cpp(279,24): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-D:\CV-Project\FPSGames\main.cpp(345,21): warning C4018: '<': signed/unsigned mismatch
-D:\CV-Project\FPSGames\main.cpp(539,19): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\main.cpp(538,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\main.cpp(552,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\main.cpp(650,20): warning C4018: '<': signed/unsigned mismatch
-D:\CV-Project\FPSGames\main.cpp(657,21): warning C4018: '<': signed/unsigned mismatch
-D:\CV-Project\FPSGames\main.cpp(799,20): warning C4018: '<': signed/unsigned mismatch
-  universal.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
+D:\CV-Project\FPSGames\include\glad\glad.h(32): message : see previous definition of 'APIENTRY'
+D:\CV-Project\FPSGames\gun.cpp(83,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\CV-Project\FPSGames\gun.cpp(89,28): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\CV-Project\FPSGames\gun.cpp(90,25): warning C4305: 'initializing': truncation from 'double' to 'float'
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
   Generating code
-  4 of 1864 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  2 of 1872 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     8 functions had inline decision re-evaluated but remain unchanged
   Finished generating code

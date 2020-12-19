@@ -1,7 +1,7 @@
 #pragma once
 
 #include "utils.h"
-
+#include "timer.h"
 
 enum Gun_Animation
 {
@@ -21,7 +21,7 @@ private:
 	Model _GunModel;
 	int _CurAmmo, _MaxAmmo;
 	int _Damage;
-
+	Timer _Animation_Timer;
 	Gun_Animation _Animation_status;
 	void GunRotate(glm::mat4& modelMatrix, const glm::vec3& Point, float degree);
 public:
@@ -33,5 +33,6 @@ public:
 	int GetDamage();
 	Model& GetModel();
 	void Display_HoldGun(Camera& camera, Shader& shader);
+	void Display_FileGun(Camera& camera, Shader& shader);
 	void Display(Camera& camera, Shader& shader);
 };

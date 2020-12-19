@@ -19,6 +19,20 @@ void Timer::StopTimer()
     QueryPerformanceCounter((LARGE_INTEGER*)&_stop_count);
     _timer_state = false;
 }
+
+void Timer::ResetTimer()
+{
+    _start_count = _stop_count = 0;
+    _timer_state = false;
+}
+
+double Timer::QueryTimer()
+{
+    unsigned long long tmp;
+    QueryPerformanceCounter((LARGE_INTEGER*)&tmp);
+    return (double)tmp * _millisec_percount;
+}
+
 double Timer::GetTimerSec() const
 {
     return GetTimerMilliSec() / (double)1000.0;

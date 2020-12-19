@@ -1,11 +1,12 @@
 #include "gun.h"
-
+#include "universal.h"
 
 Gun::Gun(string const& ModelPath, int MaxAmmo, int Damage): _GunModel(ModelPath)
 {
 	_MaxAmmo = MaxAmmo;
 	_Damage = Damage;
 	_CurAmmo = 0;
+    _Animation_status = Gun_Animation::Idle;
 }
 
 Gun::~Gun()
@@ -42,10 +43,7 @@ void Gun::GunRotate(glm::mat4& modelMatrix, const glm::vec3& Point, float degree
 
 void Gun::Display_HoldGun(Camera & camera, Shader& shader)
 {
-    // modelMatrix = glm::rotate(modelMatrix, glm::radians(camera.getYaw() - camera.getYaw() / 2), WORLD_UP);
-    // GunRotate(modelMatrix, glm::vec3(0.0f, 0.0f, 4.0f), (camera.getPitch() - camera.getPitch() / 2));
-
-    // modelMatrix = glm::rotate(modelMatrix, glm::radians(-(car.getPitch() - car.getDelayPitch() / 2)), WORLD_X);
+   
     glm::mat4 modelMatrix = glm::mat4(1.0f);
     modelMatrix = glm::translate(modelMatrix, camera.getPosition());
     glm::vec3 look = camera.Front;
@@ -69,3 +67,17 @@ void Gun::Display_HoldGun(Camera & camera, Shader& shader)
 
     _GunModel.Draw(shader);
 }
+
+void Gun::Display(Camera& camera, Shader& shader)
+{
+    if (MouseEvent == 0xff)
+    {
+        if (_Animation_status == Gun_Animation::Idle)
+            Display_HoldGun(camera, shader);
+        //if (_Animation_status == Gun_Animation::Fire)
+        //    Display_FileGun(camera, shader);
+    }
+
+}
+
+

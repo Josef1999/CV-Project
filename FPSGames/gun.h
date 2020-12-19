@@ -3,6 +3,11 @@
 #include "utils.h"
 
 
+enum Gun_Animation
+{
+	Idle,
+	Fire
+};
 
 /*
 	_GunModel	Ç¹ÐµÄ£ÐÍ
@@ -17,6 +22,7 @@ private:
 	int _CurAmmo, _MaxAmmo;
 	int _Damage;
 
+	Gun_Animation _Animation_status;
 	void GunRotate(glm::mat4& modelMatrix, const glm::vec3& Point, float degree);
 public:
 	Gun() = delete;
@@ -27,4 +33,5 @@ public:
 	int GetDamage();
 	Model& GetModel();
 	void Display_HoldGun(Camera& camera, Shader& shader);
+	void Display(Camera& camera, Shader& shader);
 };

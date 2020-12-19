@@ -159,6 +159,8 @@
     <ClInclude Include="Font.h" />
     <ClInclude Include="gun.h" />
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="timer.h" />
+    <ClInclude Include="universal.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +171,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="timer.cpp" />
+    <ClCompile Include="universal.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

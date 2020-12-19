@@ -1,4 +1,5 @@
-#include"control.h"
+#include "control.h"
+#include "universal.h"
 // ---------------------------------
 // ¼üÅÌ/Êó±ê¼àÌý
 // ---------------------------------
@@ -99,8 +100,11 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 void mouseButton_callback(GLFWwindow* window, int button, int action, int mods)
 {
     if (action == GLFW_PRESS)
+    {
+        MouseEvent = button;
         switch (button)
         {
+
         case GLFW_MOUSE_BUTTON_LEFT:
             //Éä»÷
 #ifdef DEBUG_MODE
@@ -110,15 +114,17 @@ void mouseButton_callback(GLFWwindow* window, int button, int action, int mods)
     //{
             glm::vec3 look = camera.Front;
             std::cout << "camera.Front: " << camera.Front.x << "," << camera.Front.y << "," << camera.Front.z << std::endl;
-            btRigidBody* sphere = addSphere(1.0, camera.Position.x+ look.x, camera.Position.y+ look.y, camera.Position.z+ look.z, 1.0);
+            btRigidBody* sphere = addSphere(1.0, camera.Position.x + look.x, camera.Position.y + look.y, camera.Position.z + look.z, 1.0);
 
-            
+
 
             sphere->setLinearVelocity(btVector3(200 * look.x, 200 * look.y, 200 * look.z));
             //}
 #endif
             break;
         }
+    }
+    MouseEvent = 0xff;
     return;
 }
 

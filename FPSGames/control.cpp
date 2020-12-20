@@ -1,9 +1,11 @@
 #include "control.h"
 #include "universal.h"
+
 // ---------------------------------
 // 键盘/鼠标监听
 // ---------------------------------
-void movePlayer(Direction direction1, Direction direction2, float deltaTime);
+extern myBulletEngine my_bt;
+
 void handleKeyInput(GLFWwindow* window)
 {
     // esc退出
@@ -28,35 +30,35 @@ void handleKeyInput(GLFWwindow* window)
 
     //角色
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE) {
-        movePlayer(_STOP, deltaTime);
+        my_bt.movePlayer(_STOP, deltaTime);
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-        movePlayer(_JUMP, deltaTime);
+        my_bt.movePlayer(_JUMP, deltaTime);
 
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS&& glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        movePlayer(_LEFT,_FORWARD,deltaTime);
+        my_bt.movePlayer(_LEFT,_FORWARD,deltaTime);
 
     else if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        movePlayer(_RIGHT, _FORWARD, deltaTime);
+        my_bt.movePlayer(_RIGHT, _FORWARD, deltaTime);
     
     else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        movePlayer(_LEFT, _BACKWARD, deltaTime);
+        my_bt.movePlayer(_LEFT, _BACKWARD, deltaTime);
     else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        movePlayer(_RIGHT, _BACKWARD, deltaTime);
+        my_bt.movePlayer(_RIGHT, _BACKWARD, deltaTime);
     else
     {
         
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            movePlayer(_FORWARD, deltaTime);
+            my_bt.movePlayer(_FORWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-            movePlayer(_HIGHSPEED, deltaTime);
+            my_bt.movePlayer(_HIGHSPEED, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            movePlayer(_BACKWARD, deltaTime);
+            my_bt.movePlayer(_BACKWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            movePlayer(_LEFT, deltaTime);
+            my_bt.movePlayer(_LEFT, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            movePlayer(_RIGHT, deltaTime);
+            my_bt.movePlayer(_RIGHT, deltaTime);
         
     }
     
@@ -101,7 +103,6 @@ void mouseButton_callback(GLFWwindow* window, int button, int action, int mods)
 {
     if (action == GLFW_PRESS)
     {
-        
         switch (button)
         {
 
@@ -115,11 +116,10 @@ void mouseButton_callback(GLFWwindow* window, int button, int action, int mods)
     //{
             glm::vec3 look = camera.Front;
             std::cout << "camera.Front: " << camera.Front.x << "," << camera.Front.y << "," << camera.Front.z << std::endl;
-            btRigidBody* sphere = addSphere(1.0, camera.Position.x + look.x, camera.Position.y + look.y, camera.Position.z + look.z, 1.0);
-
-
-
+            my_bt.colisionDetect(look, camera);
+            btRigidBody* sphere = my_bt.addSphere(1.0, camera.Position.x + look.x, camera.Position.y + look.y, camera.Position.z + look.z, 1.0);
             sphere->setLinearVelocity(btVector3(200 * look.x, 200 * look.y, 200 * look.z));
+
             //}
 #endif
             break;
@@ -130,145 +130,10 @@ void mouseButton_callback(GLFWwindow* window, int button, int action, int mods)
     return;
 }
 
-btRigidBody* addSphere(float radius, float x, float y, float z, float mass)
+
+// 改变窗口大小的回调函数
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    //初始化位姿信息
-    btTransform t;
-    t.setIdentity();
-    t.setOrigin(btVector3(x, y, z));
-
-    //生成形状
-    btSphereShape* sphere = new btSphereShape(radius);
-    btVector3 inertia(0, 0, 0);
-    //质量为零即静态物体
-    if (mass != 0.0) {
-        sphere->calculateLocalInertia(mass, inertia);
-    }
-    //为物体增添运动姿态信息
-    btMotionState* motion = new btDefaultMotionState(t);
-    btRigidBody::btRigidBodyConstructionInfo info(mass, motion, sphere);
-    btRigidBody* body = new btRigidBody(info);
-    //添加到世界中
-    body->setRestitution(btScalar(0.5));
-    world->addRigidBody(body);
-
-    bodies.push_back(body);
-
-    return body;
-}
-
-void movePlayer(Direction direction, float deltaTime) {
-    if (world)
-    {
-        btScalar walkVelocity = btScalar(1.1) * 8.0; // 4 km/h -> 1.1 m/s
-        btScalar walkSpeed = walkVelocity * deltaTime * 2.0f;
-        btVector3 walkDirection = btVector3(0.0, 0.0, 0.0);
-
-        //获取本地坐标向量,并且单位化
-        btVector3 forwardDir,rightDir;
-        forwardDir[0] = camera.Move.x;
-        forwardDir[1] = camera.Move.y;
-        forwardDir[2] = camera.Move.z;
-        rightDir[0] = camera.Right.x;
-        rightDir[1] = camera.Right.y;
-        rightDir[2] = camera.Right.z;
-        //cout << forwardDir[0]<< "  " << forwardDir[1]<< "  "<<forwardDir[2]<< endl;
-        
-
-        //控制前后行走,以及旋转方向,
-        if (direction == _RIGHT)
-        {
-            walkDirection = rightDir;
-            //按照方向移动角色
-        }
-
-        if (direction == _LEFT)
-        {
-            walkDirection = -rightDir;
-            //按照方向移动角色
-            
-        }
-
-        if (direction == _FORWARD)
-        {
-            walkDirection = forwardDir;
-            //按照方向移动角色
-
-        }
-
-        if (direction == _BACKWARD)
-        {
-            walkDirection = -forwardDir;
-            //按照方向移动角色
-        }
-        if (direction == _HIGHSPEED)
-        {
-            walkDirection = forwardDir;
-            walkSpeed *= 2;
-            //按照方向移动角色
-        }
-        if (direction == _JUMP && m_character && m_character->canJump())
-        {
-            m_character->jump();
-            //按照方向移动角色
-           
-        }
-        //cout << walkDirection[0] <<"  "<< walkDirection[1] <<"    "<< walkDirection [2]<<endl;
-        m_character->setWalkDirection(walkDirection * walkSpeed);
-
-        
-
-    }
-}
-void movePlayer(Direction direction1, Direction direction2,float deltaTime) {
-    if (world)
-    {
-        btVector3 walkDirection = btVector3(0.0, 0.0, 0.0);
-        btScalar walkVelocity = btScalar(1.1) * 8.0 *10; // 4 km/h -> 1.1 m/s
-        btScalar walkSpeed = walkVelocity * deltaTime * 2.0f;
-
-        //获取本地坐标向量,并且单位化
-        btVector3 forwardDir;
-        btVector3 rightwardDir;
-        forwardDir[0] = camera.Move.x;
-        forwardDir[1] = camera.Move.y;
-        forwardDir[2] = camera.Move.z;
-        rightwardDir[0] = camera.Right.x;
-        rightwardDir[1] = camera.Right.y;
-        rightwardDir[2] = camera.Right.z;
-        //cout << forwardDir[0] << "  " << forwardDir[1] << "  "<<forwardDir[2] << endl;
-
-
-        //控制前后行走,以及旋转方向,
-        if (direction1 == _RIGHT)
-        {
-            if (direction2 == _FORWARD)
-            {
-                walkDirection = (forwardDir+ rightwardDir).normalized();
-                //按照方向移动角色
-            }
-            else if(direction2 == _BACKWARD)
-                walkDirection = (-forwardDir + rightwardDir).normalized();
-
-        }
-
-        if (direction1 == _LEFT)
-        {
-            if (direction2 == _FORWARD)
-            {
-                walkDirection = (forwardDir - rightwardDir).normalized();
-                //按照方向移动角色
-            }
-            else if (direction2 == _BACKWARD)
-                walkDirection = (-forwardDir - rightwardDir).normalized();
-
-        }
-
-        //cout << walkDirection[0] <<"  "<< walkDirection[1] <<"    "<< walkDirection [2]<<endl;
-        m_character->setWalkDirection(walkDirection * walkSpeed);
-
-
-
-
-    }
+    // 确保窗口匹配的新窗口尺寸
+    glViewport(0, 0, width, height);
 }

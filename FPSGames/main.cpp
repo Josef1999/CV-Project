@@ -1,4 +1,7 @@
 
+#define DEBUG_WITHOUT_BULLET_MAP
+
+
 #include"include/glad/glad.h"
 
 #include <glm/glm.hpp>
@@ -25,96 +28,12 @@
 #include "Font.h"
 #include "Shape.h"
 #include "control.h"
+#include "shaderRender.h"
+
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "assimp.lib")
 #pragma comment(lib, "freetype.lib")
-
-
-GLFWwindow* windowInit();
-bool init();
-void depthMapFBOInit();
-void skyboxInit();
-void textTextureInit(Shader& shader);
-void quadsTextureInit();
-
-void setDeltaTime();
-
-
-// 使用“&”引用性能更好
-void renderLight(Shader& shader);
-void renderGunAndCamera(Gun& curGun, Model& cameraModel, Shader& shader);
-void renderCamera(Model& model, glm::mat4 modelMatrix, Shader& shader);
-void renderMap(Model& model, Shader& shader);
-void renderEnemy(Model& model, Shader& shader);
-void renderSkyBox(Shader& shader);
-void renderGUI(Shader& textShader, Shader& quadsShader);
-
-//bullet
-void btInit();
-void btExit();
-void cubeInit();
-
-//bullet导入物理模型
-void addMap(Model& model);
-void addGround();
-void addPlayer();
-
-//bullet导入物理渲染
-void renderPlayer(Shader& shader);
-void renderMyMap(Model& model, Shader& shader);
-void renderSphere(btRigidBody* sphere, Shader& shader);
-void renderCube(Shader& shader);
-
-
-/**bullet 初始化**/
-btDynamicsWorld* world;
-btDispatcher* dispatcher;
-btCollisionConfiguration* collisionConfiguration;
-btBroadphaseInterface* broadphase;
-btConstraintSolver* solver;
-
-std::vector<btRigidBody*> bodies;
-std::vector<btRigidBody*> my_map_obj;
-
-btRigidBody* cube = NULL;
-btRigidBody* ground = NULL;
-
-//控制角色类
-btKinematicCharacterController* m_character;
-btPairCachingGhostObject* m_ghostObject;
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void mouseButton_callback(GLFWwindow* window, int button, int action, int mods);
-
-void handleKeyInput(GLFWwindow* window);
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-
-unsigned int loadCubemap(vector<std::string> faces);
-
-
-
-
-Camera camera(cameraPos);
-glm::mat4 lightSpaceMatrix;
-
-// 深度Map的ID
-unsigned int depthMap;
-unsigned int depthMapFBO;
-
-// 将鼠标设置在屏幕中心
-float lastX = SCR_WIDTH / 2.0f;
-float lastY = SCR_HEIGHT / 2.0f;
-bool firstMouse = true;
-
-// timing 用来平衡不同电脑渲染水平所产生的速度变化
-float deltaTime = 0.0f;
-float lastFrame = 0.0f;
-
-// 天空盒
-unsigned int cubemapTexture;
-unsigned int skyboxVAO, skyboxVBO;
 
 
 //  Text Rendering
@@ -135,63 +54,40 @@ const std::vector<float> quadsSize = {
 	0.05f, 0.05f, 0.1f
 };
 
-// ------------------------------------------
-// main函数
-// ------------------------------------------
-//Cube 
+
+GLFWwindow* windowInit();
+bool init();
+void depthMapFBOInit();
+void skyboxInit();
+void setDeltaTime();
+unsigned int loadCubemap(vector<std::string> faces);
+
+myBulletEngine my_bt;
+
+Camera camera(cameraPos);
+glm::mat4 lightSpaceMatrix;
+
+// 深度Map的ID
+unsigned int depthMap;
+unsigned int depthMapFBO;
+
+// 将鼠标设置在屏幕中心
+float lastX = SCR_WIDTH / 2.0f;
+float lastY = SCR_HEIGHT / 2.0f;
+bool firstMouse = true;
+
+// timing 用来平衡不同电脑渲染水平所产生的速度变化
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
+// 天空盒
+unsigned int cubemapTexture;
+unsigned int skyboxVAO, skyboxVBO;
 unsigned int cubeVAO, cubeVBO;
-
-// Cube定点数据
-float cube_vertices[] = {
-	// positions          // normals           // texture coords
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  1.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
-};
 
 
 int main()
 {
-
-
 	// 窗口初始化
 	GLFWwindow* window = windowInit();
 	// OpenGL初始化
@@ -204,8 +100,8 @@ int main()
 	// 天空盒的配置
 	skyboxInit();
 	//cube的配置
-	cubeInit();
-	btInit();
+	cubeInit(cubeVAO, cubeVBO);
+	my_bt.btInit();
 
 	// 为所有物体添加光照和阴影的shader
 	Shader shader("shader/light_and_shadow.vs", "shader/light_and_shadow.fs");
@@ -230,21 +126,23 @@ int main()
 	Model cameraModel(FileSystem::getPath("asset/models/obj/camera-cube/camera-cube.obj"));
 	// 地面模型
 	Model mapModel(FileSystem::getPath("asset/models/obj/Map/floor.obj"));
-
 	// 地图
 	Model objModel(FileSystem::getPath("asset/models/obj//Map/Castle Tower.obj"));
 
 
+
 	//初始化物理引擎
-	addGround();
-	addMap(objModel);
+	my_bt.addGround();
+#ifdef DEBUG_WITHOUT_BULLET_MAP
+	my_bt.addMap(objModel);
+#endif // DEBUG_WITHOUT_BULLET_MAP
 
-	addSphere(1.0, 20, 50, 0, 1.0);
-	addSphere(1.0, 30, 30, 0, 1.0);
-	addSphere(1.0, 40, 90, 0, 1.0);
-	addSphere(1.0, 50, 100, 0, 1.0);
+	my_bt.addSphere(1.0, 20, 50, 0, 1.0);
+	my_bt.addSphere(1.0, 30, 30, 0, 1.0);
+	my_bt.addSphere(1.0, 40, 90, 0, 1.0);
+	my_bt.addSphere(1.0, 50, 100, 0, 1.0);
 
-	addPlayer();
+	my_bt.addPlayer();
 
 	// 枪械模型
 
@@ -254,8 +152,8 @@ int main()
 	// Gun curGun(FileSystem::getPath(AWP_Path), 31, 30);
 	//	texture conflicts ?
 	//	put quads and text texture rendering after gun rendering
-	quadsTextureInit();
-	textTextureInit(textShader);
+	quadsTextureInit(quadsObjects, quadsObjectsPos, quadsSize);
+	textTextureInit(textShader, textObjectsPos, textObjects);
 
 	shader.use();
 	shader.setInt("diffuseTexture", 0);
@@ -281,7 +179,7 @@ int main()
 		lastFrame = currentFrame;
 
 		// 物理模拟时长
-		world->stepSimulation(deltaTime);
+		my_bt.world->stepSimulation(deltaTime);
 
 		// 检查事件
 		glfwPollEvents();
@@ -311,16 +209,20 @@ int main()
 		lightSpaceMatrix = lightProjection * lightView;
 
 		// 从光源角度渲染整个场景
-		//depthShader.use();
-		//depthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+		depthShader.use();
+		depthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+
 		// 改变视口大小以便于进行深度的渲染
 		glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
 		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 		glClear(GL_DEPTH_BUFFER_BIT);
+
 		//Shadow Render start
 		//renderGunAndCamera(curGun, cameraModel, depthShader);
 		//renderMap(mapModel, depthShader);
-		//renderMyMap(objModel, depthShader);
+
+		//my_bt.renderMyMap(objModel, depthShader);
+
 		// Render end
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -335,37 +237,39 @@ int main()
 		shader.use();
 
 		// 设置光照相关属性
-		renderLight(shader);
+		renderLight(shader, lightSpaceMatrix, depthMap);
 
 		// 渲染地面
 		renderMap(mapModel, shader);
-		// 渲染场景
-		renderMyMap(objModel, shader);
+		renderMap(objModel, shader);
 
-		for (int i = 0; i < bodies.size(); i++)
+
+		// 渲染物理
+		my_bt.renderMyMap(objModel, shader);
+
+		for (int i = 0; i < my_bt.bodies.size(); i++)
 		{
-			renderSphere(bodies[i], shader);
+			renderSphere(my_bt.bodies[i], shader, cubeVAO);
 		}
-		renderPlayer(shader);
+		my_bt.renderPlayer(shader, camera);
 
 		// 使用shader渲染Gun和Camera（层级模型）
 		renderGunAndCamera(curGun, cameraModel, shader);
 		curGun.Display(camera, shader);
 
 		//renderEnemy(enemyModel, shader);
-
 		// --------------
 		// 最后再渲染天空盒
 
 		// 改变深度测试，使深度等于1.0时为无穷远
 		glDepthFunc(GL_LEQUAL);
 		skyboxShader.use();
-		renderSkyBox(skyboxShader);
+		renderSkyBox(skyboxShader, cubemapTexture, skyboxVAO);
 		// 复原深度测试
 		glDepthFunc(GL_LESS);
 
 		//  Text Rendering
-		renderGUI(textShader, quadsShader);
+		renderGUI(textShader, quadsShader, quadsObjects, textObjects, textObjectsPos);
 
 		// 交换缓冲区和调查IO事件（按下的按键,鼠标移动等）
 		glfwSwapBuffers(window);
@@ -373,6 +277,7 @@ int main()
 		// 轮询事件
 		glfwPollEvents();
 	}
+	//my_bt.btExit();
 
 	// 关闭glfw
 	glfwTerminate();
@@ -409,50 +314,6 @@ GLFWwindow* windowInit()
 	return window;
 }
 
-void renderCube(Shader& shader) {
-	// 视图转换
-	glm::mat4 viewMatrix = camera.GetViewMatrix();
-	shader.setMat4("view", viewMatrix);
-	// 模型转换
-	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(3.0f, 1.5f, -4.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(120.0f), WORLD_UP);
-	shader.setMat4("model", modelMatrix);
-	// 投影转换
-	glm::mat4 projMatrix = camera.GetProjMatrix((float)SCR_WIDTH / (float)SCR_HEIGHT);
-	shader.setMat4("projection", projMatrix);
-
-	glBindVertexArray(cubeVAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-	glBindVertexArray(0);
-}
-
-void renderSphere(btRigidBody* sphere, Shader& shader)
-{
-	if (sphere->getCollisionShape()->getShapeType() != SPHERE_SHAPE_PROXYTYPE) {
-		//        std::cout << RED << "sphere error" << RESET << std::endl;
-		return;
-	}
-	float r = ((btSphereShape*)sphere->getCollisionShape())->getRadius();
-	btTransform t;
-	sphere->getMotionState()->getWorldTransform(t);
-
-	float mat[16];
-	t.getOpenGLMatrix(mat);
-
-	glm::mat4 positionTrans = glm::make_mat4(mat);
-
-	glm::mat4 model;
-	//    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
-	model = positionTrans * model;
-	model = glm::scale(model, glm::vec3(r));
-	//glUniformMatrix4fv(glGetUniformLocation(_shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-	shader.setMat4("model", model);
-
-	glBindVertexArray(cubeVAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-	glBindVertexArray(0);
-}
 
 
 bool init()
@@ -508,43 +369,6 @@ void skyboxInit()
 	cubemapTexture = loadCubemap(faces);
 }
 
-//  Text Rendering
-void textTextureInit(Shader& shader)
-{
-	Text ammoText, healthText;
-
-	ammoText.Configure(shader, "asset/Fonts/Roboto-BoldItalic.ttf");
-	ammoText.SetText("35");
-	ammoText.SetScale(0.8f);
-	ammoText.SetPosition(textObjectsPos[0]);
-	ammoText.SetColor(glm::vec3(0.5, 0.8f, 0.2f));
-	textObjects.push_back(ammoText);
-
-	healthText.Configure(shader, "asset/Fonts/Roboto-BoldItalic.ttf");
-	healthText.SetText("100");
-	healthText.SetScale(0.8f);
-	healthText.SetPosition(textObjectsPos[1]);
-	healthText.SetColor(glm::vec3(0.3, 0.7f, 0.9f));
-	textObjects.push_back(healthText);
-}
-
-//  Quad Rendering: Ammo, Health, crossHair
-void quadsTextureInit()
-{
-	Quads ammoIcon(quadsSize[0], quadsSize[0], quadsObjectsPos[0].x, quadsObjectsPos[0].y),
-		healthIcon(quadsSize[1], quadsSize[1], quadsObjectsPos[1].x, quadsObjectsPos[1].y),
-		//	we adjust crossHair position here, 
-		//	bcz posx and posy in Quads are left-down positions
-		crossHair(quadsSize[2], quadsSize[2], SCR_WIDTH / 2 - quadsSize[2] * 0.5 * SCR_WIDTH,
-			SCR_HEIGHT / 2 - quadsSize[2] * 0.5 * SCR_HEIGHT);
-
-	ammoIcon.loadTextures("asset/textures/Ammo.png");
-	quadsObjects.push_back(ammoIcon);
-	healthIcon.loadTextures("asset/textures/HealthIcon.png");
-	quadsObjects.push_back(healthIcon);
-	crossHair.loadTextures("asset/textures/crossHair.png");
-	quadsObjects.push_back(crossHair);
-}
 
 // 计算一帧的时间长度
 void setDeltaTime()
@@ -554,298 +378,8 @@ void setDeltaTime()
 	lastFrame = currentFrame;
 }
 
-// 设置光照相关属性
-void renderLight(Shader& shader)
-{
-	shader.setVec3("viewPos", camera.getPosition());
-	shader.setVec3("lightDirection", lightDirection);
-	shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-
-	glActiveTexture(GL_TEXTURE15);
-	glBindTexture(GL_TEXTURE_2D, depthMap);
-}
-void renderGUI(Shader& textShader, Shader& quadsShader)
-{
-	for (unsigned int i = 0; i < quadsObjects.size(); i++) {
-		quadsShader.use();
-		quadsObjects[i].activateTexture();
-		quadsObjects[i].draw();
-	}
-
-	for (unsigned int i = 0; i < textObjects.size(); i++) {
-		textObjects[i].SetPosition(textObjectsPos[i]);
-		textObjects[i].Render(textShader);
-	}
-}
-void renderGunAndCamera(Gun& curGun, Model& cameraModel, Shader& shader)
-{
-	// 视图转换
-	glm::mat4 viewMatrix = camera.GetViewMatrix();
-	shader.setMat4("view", viewMatrix);
-	// 投影转换
-	glm::mat4 projMatrix = camera.GetProjMatrix((float)SCR_WIDTH / (float)SCR_HEIGHT);
-	shader.setMat4("projection", projMatrix);
-
-	// -------
-	// 层级建模
-
-	// 模型转换
-	glm::mat4 modelMatrix = glm::mat4(1.0f);
 
 
-	// 渲染枪支
-	// curGun.Display_HoldGun(camera, shader, modelMatrix);
-
-}
-void renderCamera(Model& model, glm::mat4 modelMatrix, Shader& shader)
-{
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(camera.getYaw() / 2), WORLD_UP);
-	modelMatrix = glm::translate(modelMatrix, cameraPos);
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.01f, 0.01f, 0.01f));
-
-	// 应用变换矩阵
-	shader.setMat4("model", modelMatrix);
-
-	model.Draw(shader);
-}
-void renderEnemy(Model& model, Shader& shader)
-{
-	// 视图转换
-	glm::mat4 viewMatrix = camera.GetViewMatrix();
-	shader.setMat4("view", viewMatrix);
-	// 模型转换
-	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(3.0f, 1.5f, -4.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(-120.0f), WORLD_UP);
-	shader.setMat4("model", modelMatrix);
-	// 投影转换
-	glm::mat4 projMatrix = camera.GetProjMatrix((float)SCR_WIDTH / (float)SCR_HEIGHT);
-	shader.setMat4("projection", projMatrix);
-
-	model.Draw(shader);
-}
-void renderMap(Model& model, Shader& shader)
-{
-	// 视图转换
-	glm::mat4 viewMatrix = camera.GetViewMatrix();
-	shader.setMat4("view", viewMatrix);
-	// 模型转换
-	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	shader.setMat4("model", modelMatrix);
-	// 投影转换
-	glm::mat4 projMatrix = camera.GetProjMatrix((float)SCR_WIDTH / (float)SCR_HEIGHT);
-	shader.setMat4("projection", projMatrix);
-
-	model.Draw(shader);
-}
-void addMap(Model& model) {
-
-	//初始化位姿信息
-	btTransform t;
-	t.setIdentity();
-	t.setOrigin(btVector3(0, -5, 0));
-	//为物体增添运动姿态信息
-	btScalar mass = 0;
-
-	for (int i = 0; i < model.meshes.size(); i++) {
-		//单个物体
-		cout << "meshes : " << i << endl;
-		btMotionState* motion = new btDefaultMotionState(t);
-		btConvexHullShape* collisionShape = new btConvexHullShape(); //用桌子的点集构建了一个凸的碰撞模型，虽然桌子是凹的
-		cout << "ww" << endl;
-		btConvexHullShape* unoptimized_hull = new btConvexHullShape{};
-		for (int j = 0; j < model.meshes[i].vertices.size(); j++) {
-			//顶点
-			cout << "  " << j << endl;
-			btVector3 vertex{
-				model.meshes[i].vertices[j].Position.x,
-				model.meshes[i].vertices[j].Position.y,
-				model.meshes[i].vertices[j].Position.z };
-			cout << model.meshes[i].vertices[j].Position.x << " " << model.meshes[i].vertices[j].Position.y << " " << model.meshes[i].vertices[j].Position.z << endl;
-			unoptimized_hull->addPoint(vertex);
-		}
-		btCollisionShape* collision_shape = new btConvexHullShape{ *unoptimized_hull };
-
-		btVector3 inertia = btVector3{ 0, 0, 0 };
-		collision_shape->calculateLocalInertia(mass, inertia);
-
-		btRigidBody::btRigidBodyConstructionInfo construction_info{ mass,
-			motion, collision_shape, inertia };
-
-		btRigidBody* my_obj = new btRigidBody{ construction_info };
-		my_obj->setRestitution(btScalar(0.5));
-		world->addRigidBody(my_obj);
-		my_map_obj.push_back(my_obj);
-	}
-}
-
-void cubeInit()
-{
-	int stride = (3 + 3 + 2);
-
-	glGenVertexArrays(1, &cubeVAO);
-	glGenBuffers(1, &cubeVBO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), &cube_vertices, GL_STATIC_DRAW);
-
-	glBindVertexArray(cubeVAO);
-	glEnableVertexAttribArray(0);
-
-	/**position attribute*/
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	/**color attribute*/
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-}
-
-void btInit()
-{
-	collisionConfiguration = new btDefaultCollisionConfiguration();
-	dispatcher = new btCollisionDispatcher(collisionConfiguration);
-	broadphase = new btDbvtBroadphase();
-	solver = new btSequentialImpulseConstraintSolver();
-	world = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
-	world->getDispatchInfo().m_allowedCcdPenetration = 0.0001f;
-	world->setGravity(btVector3(0, -10, 0));
-}
-
-void btExit()
-{
-	delete dispatcher;
-	delete collisionConfiguration;
-	delete solver;
-	delete world;
-	delete broadphase;
-}
-
-void renderSphere(btRigidBody* sphere, Shader& shader);
-void renderCube(Shader& shader);
-
-void addGround() {
-	//添加地面
-	btTransform t;
-	t.setIdentity();
-	t.setOrigin(btVector3(0, 0, 0));
-	btStaticPlaneShape* plane = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
-	btMotionState* motion = new btDefaultMotionState(t);
-	btRigidBody::btRigidBodyConstructionInfo info(0.0, motion, plane);
-	btRigidBody* body = new btRigidBody(info);
-	body->setRestitution(btScalar(0.5));
-	world->addRigidBody(body);
-}
-
-void addPlayer() {
-	btTransform t;
-	t.setIdentity();
-	t.setOrigin(btVector3(10, 0, 0));
-
-	m_ghostObject = new btPairCachingGhostObject();
-	m_ghostObject->setWorldTransform(t);
-
-	broadphase->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
-
-	btScalar characterHeight = 2.0f;
-	btScalar characterWidth = 2.0f;
-	btConvexShape* capsule = new btCapsuleShape(characterWidth, characterHeight);
-	m_ghostObject->setCollisionShape(capsule);
-	m_ghostObject->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
-
-	btScalar stepHeight = btScalar(0.35);
-	m_character = new btKinematicCharacterController(m_ghostObject, capsule, stepHeight);
-
-	m_character->setGravity(btVector3(0, -10, 0));
-
-	//向世界中添加碰撞对象
-	world->addCollisionObject(
-		m_ghostObject,
-		btBroadphaseProxy::CharacterFilter,
-		btBroadphaseProxy::StaticFilter | btBroadphaseProxy::DefaultFilter
-	);
-	world->addAction(m_character);
-}
-
-
-void renderPlayer(Shader& shader)
-{
-	//更新渲染对象
-	float r = ((btSphereShape*)m_ghostObject->getCollisionShape())->getRadius();
-
-	btTransform t = m_ghostObject->getWorldTransform();
-
-	float mat[16];
-	t.getOpenGLMatrix(mat);
-
-	glm::mat4 positionTrans = glm::make_mat4(mat);
-
-	camera.Position[0] = positionTrans[3][0];
-	camera.Position[1] = positionTrans[3][1];
-	camera.Position[2] = positionTrans[3][2];
-	glm::mat4 model;
-	//    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
-	model = positionTrans * model;
-	//model = glm::scale(model, glm::vec3(r));
-	//glUniformMatrix4fv(glGetUniformLocation(_shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-	shader.setMat4("model", model);
-
-	/*glBindVertexArray(cubeVAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-	glBindVertexArray(0);*/
-}
-
-
-void renderMyMap(Model& model, Shader& shader) {
-	for (int i = 0; i < my_map_obj.size(); i++) {
-		btTransform t;
-		float mat[16];
-		t.getOpenGLMatrix(mat);
-
-		glm::mat4 positionTrans = glm::make_mat4(mat);
-
-		glm::mat4 modelMatrix;
-		//    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
-		modelMatrix = positionTrans * modelMatrix;
-		//glUniformMatrix4fv(glGetUniformLocation(_shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		shader.setMat4("model", modelMatrix);
-
-		// 视图转换
-		glm::mat4 viewMatrix = camera.GetViewMatrix();
-		shader.setMat4("view", viewMatrix);
-
-		// 投影转换
-		glm::mat4 projMatrix = camera.GetProjMatrix((float)SCR_WIDTH / (float)SCR_HEIGHT);
-		shader.setMat4("projection", projMatrix);
-
-		model.Draw(shader);
-		my_map_obj[i]->getMotionState()->getWorldTransform(t);
-
-	}
-
-}
-
-void renderSkyBox(Shader& shader)
-{
-	// viewMatrix 通过构造，移除相机的移动
-	glm::mat4 viewMatrix = glm::mat4(glm::mat3(camera.GetViewMatrix()));
-	// 投影
-	glm::mat4 projMatrix = camera.GetProjMatrix((float)SCR_WIDTH / (float)SCR_HEIGHT);
-
-	shader.setMat4("view", viewMatrix);
-	shader.setMat4("projection", projMatrix);
-
-	glBindVertexArray(skyboxVAO);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-	glBindVertexArray(0);
-}
-// 改变窗口大小的回调函数
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	// 确保窗口匹配的新窗口尺寸
-	glViewport(0, 0, width, height);
-}
 // 将六份纹理加载为一个cubemap纹理
 unsigned int loadCubemap(vector<std::string> faces)
 {

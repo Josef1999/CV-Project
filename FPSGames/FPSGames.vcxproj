@@ -162,6 +162,8 @@
     <ClInclude Include="timer.h" />
     <ClInclude Include="universal.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="shaderRender.h" />
+    <ClInclude Include="physicalEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="control.cpp" />
@@ -169,6 +171,8 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="gun.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="physicalEngine.cpp" />
+    <ClCompile Include="shaderRender.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="timer.cpp" />

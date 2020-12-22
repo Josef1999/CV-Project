@@ -3,3 +3,6 @@
 newmtl Mat_0
 Kd 1.000000 1.000000 1.000000
 map_Kd papyrus.jpg
+
+newmtl Green_0
+Kd 0.129412 0.733333 0.298039

@@ -53,7 +53,10 @@ public:
             meshes[i].Draw(shader);
         }
     }
-
+    void Draw_Single(Shader shader, int num)
+    {
+        meshes[num].Draw(shader);
+    }
 private:
     /*  ����  */
     // ���ļ�����ģ��֧�� ASSIMP ��չ���洢���������ɵ���������

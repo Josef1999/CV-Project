@@ -1,15 +1,16 @@
-﻿  control.cpp
+﻿  main.cpp
+C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 C:\Users\THINK\Desktop\CV-Project\FPSGames\include\learnopengl\model.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-C:\Users\THINK\Desktop\CV-Project\FPSGames\control.cpp(88,17): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-C:\Users\THINK\Desktop\CV-Project\FPSGames\control.cpp(89,17): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-C:\Users\THINK\Desktop\CV-Project\FPSGames\control.cpp(93,19): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-C:\Users\THINK\Desktop\CV-Project\FPSGames\control.cpp(94,19): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-C:\Users\THINK\Desktop\CV-Project\FPSGames\control.cpp(96,13): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-C:\Users\THINK\Desktop\CV-Project\FPSGames\control.cpp(97,13): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+F:\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+C:\Users\THINK\Desktop\CV-Project\FPSGames\include\glad\glad.h(32): message : 参见“APIENTRY”的前一个定义
+C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(180,24): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
+C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(250,21): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(377,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
 LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
   正在生成代码
-  Previous IPDB not found, fall back to full compilation.
-  All 1923 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  71 of 1924 functions ( 3.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    27 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
 glfw3.lib(context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(context.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
 glfw3.lib(init.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(init.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样

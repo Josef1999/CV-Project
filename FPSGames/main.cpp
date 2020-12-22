@@ -1,3 +1,5 @@
+// 12.22 解决了地图模型导入的问题 可以上坡 爬箱子
+//                p.s. 地图是真的丑
 
 #define DEBUG_WITHOUT_BULLET_MAP
 
@@ -127,7 +129,8 @@ int main()
 	// 地面模型
 	Model mapModel(FileSystem::getPath("asset/models/obj/Map/floor.obj"));
 	// 地图
-	Model objModel(FileSystem::getPath("asset/models/obj//Map/Castle Tower.obj"));
+	Model objModel(FileSystem::getPath("asset/models/obj//Map/new_scene.obj"));//Castle Tower.obj
+	//Model objModel_for_physical(FileSystem::getPath("asset/models/obj//Map/new_scene.obj"));//Castle Tower.obj
 
 
 
@@ -145,8 +148,6 @@ int main()
 	my_bt.addPlayer();
 
 	// 枪械模型
-
-
 	Gun curGun(FileSystem::getPath(AK_Path), 31, 30);
 
 	// Gun curGun(FileSystem::getPath(AWP_Path), 31, 30);
@@ -241,17 +242,15 @@ int main()
 
 		// 渲染地面
 		renderMap(mapModel, shader);
-		renderMap(objModel, shader);
-
 
 		// 渲染物理
 		my_bt.renderMyMap(objModel, shader);
-
 		for (int i = 0; i < my_bt.bodies.size(); i++)
 		{
 			renderSphere(my_bt.bodies[i], shader, cubeVAO);
 		}
 		my_bt.renderPlayer(shader, camera);
+
 
 		// 使用shader渲染Gun和Camera（层级模型）
 		renderGunAndCamera(curGun, cameraModel, shader);

@@ -38,7 +38,7 @@ enum ObjIndex
 };
 
 
-// Cube¶¨µãÊı¾İ
+// Cubeå®šç‚¹æ•°æ®
 float cube_vertices[] = {
 	// positions          // normals           // texture coords
 	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
@@ -134,7 +134,7 @@ void myBulletEngine::btExit()
 
 
 void myBulletEngine::addGround() {
-	//Ìí¼ÓµØÃæ
+	//æ·»åŠ åœ°é¢
 	btTransform t;
 	t.setIdentity();
 	t.setOrigin(btVector3(0, 0, 0));
@@ -151,22 +151,22 @@ void myBulletEngine::addGround() {
 
 void myBulletEngine::addMap(Model& model) {
 
-	//³õÊ¼»¯Î»×ËĞÅÏ¢
+	//åˆå§‹åŒ–ä½å§¿ä¿¡æ¯
 	btTransform t;
 	t.setIdentity();
 	t.setOrigin(btVector3(0, -5, 0));
-	//ÎªÎïÌåÔöÌíÔË¶¯×ËÌ¬ĞÅÏ¢
+	//ä¸ºç‰©ä½“å¢æ·»è¿åŠ¨å§¿æ€ä¿¡æ¯
 	btScalar mass = 0;
 
 	for (int i = 0; i < model.meshes.size(); i++) {
-		//µ¥¸öÎïÌå
+		//å•ä¸ªç‰©ä½“
 		cout << "meshes : " << i << endl;
 		btMotionState* motion = new btDefaultMotionState(t);
-		btConvexHullShape* collisionShape = new btConvexHullShape(); //ÓÃ×À×ÓµÄµã¼¯¹¹½¨ÁËÒ»¸öÍ¹µÄÅö×²Ä£ĞÍ£¬ËäÈ»×À×ÓÊÇ°¼µÄ
+		btConvexHullShape* collisionShape = new btConvexHullShape(); //ç”¨æ¡Œå­çš„ç‚¹é›†æ„å»ºäº†ä¸€ä¸ªå‡¸çš„ç¢°æ’æ¨¡å‹ï¼Œè™½ç„¶æ¡Œå­æ˜¯å‡¹çš„
 		cout << "ww" << endl;
 		btConvexHullShape* unoptimized_hull = new btConvexHullShape{};
 		for (int j = 0; j < model.meshes[i].vertices.size(); j++) {
-			//¶¥µã
+			//é¡¶ç‚¹
 			cout << "  " << j << endl;
 			btVector3 vertex{
 				model.meshes[i].vertices[j].Position.x,
@@ -179,7 +179,9 @@ void myBulletEngine::addMap(Model& model) {
 		collision_shape->setUserIndex(bt_Map);
 
 		btVector3 inertia = btVector3{ 0, 0, 0 };
-		collision_shape->calculateLocalInertia(mass, inertia);
+		if (mass != 0.0) {
+			collision_shape->calculateLocalInertia(mass, inertia);
+		}
 
 		btRigidBody::btRigidBodyConstructionInfo construction_info{ mass,
 			motion, collision_shape, inertia };
@@ -211,9 +213,9 @@ void myBulletEngine::addPlayer() {
 	btScalar stepHeight = btScalar(0.35);
 	m_character = new btKinematicCharacterController(m_ghostObject, capsule, stepHeight);
 
-	m_character->setGravity(btVector3(0, -10, 0));
+	m_character->setGravity(btVector3(0, -10000/80, 0));
 
-	//ÏòÊÀ½çÖĞÌí¼ÓÅö×²¶ÔÏó
+	//å‘ä¸–ç•Œä¸­æ·»åŠ ç¢°æ’å¯¹è±¡
 	world->addCollisionObject(
 		m_ghostObject,
 		btBroadphaseProxy::CharacterFilter,
@@ -224,23 +226,23 @@ void myBulletEngine::addPlayer() {
 
 btRigidBody* myBulletEngine::addSphere(float radius, float x, float y, float z, float mass)
 {
-	//³õÊ¼»¯Î»×ËĞÅÏ¢
+	//åˆå§‹åŒ–ä½å§¿ä¿¡æ¯
 	btTransform t;
 	t.setIdentity();
 	t.setOrigin(btVector3(x, y, z));
 
-	//Éú³ÉĞÎ×´
+	//ç”Ÿæˆå½¢çŠ¶
 	btSphereShape* sphere = new btSphereShape(radius);
 	btVector3 inertia(0, 0, 0);
-	//ÖÊÁ¿ÎªÁã¼´¾²Ì¬ÎïÌå
+	//è´¨é‡ä¸ºé›¶å³é™æ€ç‰©ä½“
 	if (mass != 0.0) {
 		sphere->calculateLocalInertia(mass, inertia);
 	}
-	//ÎªÎïÌåÔöÌíÔË¶¯×ËÌ¬ĞÅÏ¢
+	//ä¸ºç‰©ä½“å¢æ·»è¿åŠ¨å§¿æ€ä¿¡æ¯
 	btMotionState* motion = new btDefaultMotionState(t);
 	btRigidBody::btRigidBodyConstructionInfo info(mass, motion, sphere);
 	btRigidBody* body = new btRigidBody(info);
-	//Ìí¼Óµ½ÊÀ½çÖĞ
+	//æ·»åŠ åˆ°ä¸–ç•Œä¸­
 	body->setRestitution(btScalar(0.5));
 	world->addRigidBody(body);
 	body->getCollisionShape()->setUserIndex(bt_Enemy);
@@ -250,24 +252,24 @@ btRigidBody* myBulletEngine::addSphere(float radius, float x, float y, float z, 
 }
 btRigidBody* myBulletEngine::addBullet(float radius, float x, float y, float z, float mass)
 {
-	//³õÊ¼»¯Î»×ËĞÅÏ¢
+	//åˆå§‹åŒ–ä½å§¿ä¿¡æ¯
 	btTransform t;
 	t.setIdentity();
 	t.setOrigin(btVector3(x, y, z));
 
-	//Éú³ÉĞÎ×´
+	//ç”Ÿæˆå½¢çŠ¶
 	btSphereShape* sphere = new btSphereShape(radius);
 	btVector3 inertia(0, 0, 0);
-	//ÖÊÁ¿ÎªÁã¼´¾²Ì¬ÎïÌå
+	//è´¨é‡ä¸ºé›¶å³é™æ€ç‰©ä½“
 	if (mass != 0.0) {
 		sphere->calculateLocalInertia(mass, inertia);
 	}
-	//ÎªÎïÌåÔöÌíÔË¶¯×ËÌ¬ĞÅÏ¢
+	//ä¸ºç‰©ä½“å¢æ·»è¿åŠ¨å§¿æ€ä¿¡æ¯
 	btMotionState* motion = new btDefaultMotionState(t);
 	btRigidBody::btRigidBodyConstructionInfo info(mass, motion, sphere);
 	btRigidBody* body = new btRigidBody(info);
 
-	//Ìí¼Óµ½ÊÀ½çÖĞ
+	//æ·»åŠ åˆ°ä¸–ç•Œä¸­
 	body->setRestitution(btScalar(0.5));
 
 	body->getCollisionShape()->setUserIndex(bt_Bullet);
@@ -282,7 +284,7 @@ btRigidBody* myBulletEngine::addBullet(float radius, float x, float y, float z, 
 
 void myBulletEngine::renderPlayer(Shader& shader, Camera& camera)
 {
-	//¸üĞÂäÖÈ¾¶ÔÏó
+	//æ›´æ–°æ¸²æŸ“å¯¹è±¡
 	float r = ((btSphereShape*)m_ghostObject->getCollisionShape())->getRadius();
 
 	btTransform t = m_ghostObject->getWorldTransform();
@@ -293,7 +295,7 @@ void myBulletEngine::renderPlayer(Shader& shader, Camera& camera)
 	glm::mat4 positionTrans = glm::make_mat4(mat);
 
 	camera.Position[0] = positionTrans[3][0];
-	camera.Position[1] = positionTrans[3][1];
+	camera.Position[1] = positionTrans[3][1]+5.0f;
 	camera.Position[2] = positionTrans[3][2];
 	glm::mat4 model;
 	//    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
@@ -311,9 +313,29 @@ void myBulletEngine::renderMyMap(Model& model, Shader& shader) {
 	for (int i = 0; i < my_map_obj.size(); i++) {
 		btTransform t;
 		float mat[16];
-		t.getOpenGLMatrix(mat);
 		my_map_obj[i]->getMotionState()->getWorldTransform(t);
 
+		t.getOpenGLMatrix(mat);
+
+		glm::mat4 positionTrans = glm::make_mat4(mat);
+
+		glm::mat4 modelMatrix;
+		//    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+		modelMatrix = positionTrans * modelMatrix;
+		//glUniformMatrix4fv(glGetUniformLocation(_shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		shader.setMat4("model", modelMatrix);
+
+		// è§†å›¾è½¬æ¢
+		glm::mat4 viewMatrix = camera.GetViewMatrix();
+		shader.setMat4("view", viewMatrix);
+
+		// æŠ•å½±è½¬æ¢
+		glm::mat4 projMatrix = camera.GetProjMatrix((float)SCR_WIDTH / (float)SCR_HEIGHT);
+		shader.setMat4("projection", projMatrix);
+
+		model.Draw_Single(shader, i);
+
+	
 	}
 
 }
@@ -324,11 +346,11 @@ void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
 	if (world)
 	{
 		
-		btScalar walkVelocity = btScalar(1.1) * 8.0; // 4 km/h -> 1.1 m/s
+		btScalar walkVelocity = btScalar(1.1) * 8.0 * 2; // 4 km/h -> 1.1 m/s
 		btScalar walkSpeed = walkVelocity * deltaTime * 2.0f;
 		btVector3 walkDirection = btVector3(0.0, 0.0, 0.0);
 
-		//»ñÈ¡±¾µØ×ø±êÏòÁ¿,²¢ÇÒµ¥Î»»¯
+		//è·å–æœ¬åœ°åæ ‡å‘é‡,å¹¶ä¸”å•ä½åŒ–
 		btVector3 forwardDir, rightDir;
 		forwardDir[0] = camera.Move.x;
 		forwardDir[1] = camera.Move.y;
@@ -339,17 +361,17 @@ void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
 		//cout << forwardDir[0]<< "  " << forwardDir[1]<< "  "<<forwardDir[2]<< endl;
 
 
-		//¿ØÖÆÇ°ºóĞĞ×ß,ÒÔ¼°Ğı×ª·½Ïò,
+		//æ§åˆ¶å‰åè¡Œèµ°,ä»¥åŠæ—‹è½¬æ–¹å‘,
 		if (direction == _RIGHT)
 		{
 			walkDirection = rightDir;
-			//°´ÕÕ·½ÏòÒÆ¶¯½ÇÉ«
+			//æŒ‰ç…§æ–¹å‘ç§»åŠ¨è§’è‰²
 		}
 
 		if (direction == _LEFT)
 		{
 			walkDirection = -rightDir;
-			//°´ÕÕ·½ÏòÒÆ¶¯½ÇÉ«
+			//æŒ‰ç…§æ–¹å‘ç§»åŠ¨è§’è‰²
 
 		}
 
@@ -367,12 +389,13 @@ void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
 		{
 			walkDirection = forwardDir;
 			walkSpeed *= 2;
-			//°´ÕÕ·½ÏòÒÆ¶¯½ÇÉ«
+			//æŒ‰ç…§æ–¹å‘ç§»åŠ¨è§’è‰²
 		}
 		if (direction == _JUMP && m_character && m_character->canJump())
 		{
-			m_character->jump();
-			//°´ÕÕ·½ÏòÒÆ¶¯½ÇÉ«
+			btVector3 v = btVector3(0, 100/2, 0);
+			m_character->jump(v);
+			//æŒ‰ç…§æ–¹å‘ç§»åŠ¨è§’è‰²
 
 		}
 		//cout << walkDirection[0] <<"  "<< walkDirection[1] <<"    "<< walkDirection [2]<<endl;
@@ -385,10 +408,10 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 	if (world)
 	{
 		btVector3 walkDirection = btVector3(0.0, 0.0, 0.0);
-		btScalar walkVelocity = btScalar(1.1) * 8.0 * 10; // 4 km/h -> 1.1 m/s
+		btScalar walkVelocity = btScalar(1.1) * 8.0 *2; // 4 km/h -> 1.1 m/s
 		btScalar walkSpeed = walkVelocity * deltaTime * 2.0f;
 
-		//»ñÈ¡±¾µØ×ø±êÏòÁ¿,²¢ÇÒµ¥Î»»¯
+		//è·å–æœ¬åœ°åæ ‡å‘é‡,å¹¶ä¸”å•ä½åŒ–
 		btVector3 forwardDir;
 		btVector3 rightwardDir;
 		forwardDir[0] = camera.Move.x;
@@ -400,13 +423,13 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 		//cout << forwardDir[0] << "  " << forwardDir[1] << "  "<<forwardDir[2] << endl;
 
 
-		//¿ØÖÆÇ°ºóĞĞ×ß,ÒÔ¼°Ğı×ª·½Ïò,
+		//æ§åˆ¶å‰åè¡Œèµ°,ä»¥åŠæ—‹è½¬æ–¹å‘,
 		if (direction1 == _RIGHT)
 		{
 			if (direction2 == _FORWARD)
 			{
 				walkDirection = (forwardDir + rightwardDir).normalized();
-				//°´ÕÕ·½ÏòÒÆ¶¯½ÇÉ«
+				//æŒ‰ç…§æ–¹å‘ç§»åŠ¨è§’è‰²
 			}
 			else if (direction2 == _BACKWARD)
 				walkDirection = (-forwardDir + rightwardDir).normalized();
@@ -418,7 +441,7 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 			if (direction2 == _FORWARD)
 			{
 				walkDirection = (forwardDir - rightwardDir).normalized();
-				//°´ÕÕ·½ÏòÒÆ¶¯½ÇÉ«
+				//æŒ‰ç…§æ–¹å‘ç§»åŠ¨è§’è‰²
 			}
 			else if (direction2 == _BACKWARD)
 				walkDirection = (-forwardDir - rightwardDir).normalized();
@@ -438,7 +461,7 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 void myBulletEngine::colisionDetect(glm::vec3 look, Camera camera){
 	double scalar = 1000;
 	glm::vec3 look_nor = glm::normalize(look);
-	// ÑÓ³¤Ö¸Ïò»÷´òµã
+	// å»¶é•¿æŒ‡å‘å‡»æ‰“ç‚¹
 	glm::vec3 look_ahead = glm::vec3(look_nor.x * scalar, look_nor.y * scalar, look_nor.z * scalar);
 	glm::vec3 look_dest = camera.Position + look_ahead;
 

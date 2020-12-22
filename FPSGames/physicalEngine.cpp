@@ -179,7 +179,9 @@ void myBulletEngine::addMap(Model& model) {
 		collision_shape->setUserIndex(bt_Map);
 
 		btVector3 inertia = btVector3{ 0, 0, 0 };
-		collision_shape->calculateLocalInertia(mass, inertia);
+		if (mass != 0.0) {
+			collision_shape->calculateLocalInertia(mass, inertia);
+		}
 
 		btRigidBody::btRigidBodyConstructionInfo construction_info{ mass,
 			motion, collision_shape, inertia };
@@ -211,7 +213,7 @@ void myBulletEngine::addPlayer() {
 	btScalar stepHeight = btScalar(0.35);
 	m_character = new btKinematicCharacterController(m_ghostObject, capsule, stepHeight);
 
-	m_character->setGravity(btVector3(0, -10, 0));
+	m_character->setGravity(btVector3(0, -10000/80, 0));
 
 	//向世界中添加碰撞对象
 	world->addCollisionObject(
@@ -294,7 +296,7 @@ void myBulletEngine::renderPlayer(Shader& shader, Camera& camera)
 
 	camera.Position[0] = positionTrans[3][0];
 	camera.Position[1] = positionTrans[3][1];
-	camera.Position[2] = positionTrans[3][2];
+	camera.Position[2] = positionTrans[3][2]+1.0f;
 	glm::mat4 model;
 	//    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
 	model = positionTrans * model;
@@ -311,9 +313,29 @@ void myBulletEngine::renderMyMap(Model& model, Shader& shader) {
 	for (int i = 0; i < my_map_obj.size(); i++) {
 		btTransform t;
 		float mat[16];
-		t.getOpenGLMatrix(mat);
 		my_map_obj[i]->getMotionState()->getWorldTransform(t);
 
+		t.getOpenGLMatrix(mat);
+
+		glm::mat4 positionTrans = glm::make_mat4(mat);
+
+		glm::mat4 modelMatrix;
+		//    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+		modelMatrix = positionTrans * modelMatrix;
+		//glUniformMatrix4fv(glGetUniformLocation(_shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		shader.setMat4("model", modelMatrix);
+
+		// 视图转换
+		glm::mat4 viewMatrix = camera.GetViewMatrix();
+		shader.setMat4("view", viewMatrix);
+
+		// 投影转换
+		glm::mat4 projMatrix = camera.GetProjMatrix((float)SCR_WIDTH / (float)SCR_HEIGHT);
+		shader.setMat4("projection", projMatrix);
+
+		model.Draw_Single(shader, i);
+
+	
 	}
 
 }
@@ -324,7 +346,7 @@ void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
 	if (world)
 	{
 		
-		btScalar walkVelocity = btScalar(1.1) * 8.0; // 4 km/h -> 1.1 m/s
+		btScalar walkVelocity = btScalar(1.1) * 8.0 * 2; // 4 km/h -> 1.1 m/s
 		btScalar walkSpeed = walkVelocity * deltaTime * 2.0f;
 		btVector3 walkDirection = btVector3(0.0, 0.0, 0.0);
 
@@ -371,7 +393,8 @@ void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
 		}
 		if (direction == _JUMP && m_character && m_character->canJump())
 		{
-			m_character->jump();
+			btVector3 v = btVector3(0, 100/2, 0);
+			m_character->jump(v);
 			//按照方向移动角色
 
 		}
@@ -385,7 +408,7 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 	if (world)
 	{
 		btVector3 walkDirection = btVector3(0.0, 0.0, 0.0);
-		btScalar walkVelocity = btScalar(1.1) * 8.0 * 10; // 4 km/h -> 1.1 m/s
+		btScalar walkVelocity = btScalar(1.1) * 8.0 *2; // 4 km/h -> 1.1 m/s
 		btScalar walkSpeed = walkVelocity * deltaTime * 2.0f;
 
 		//获取本地坐标向量,并且单位化

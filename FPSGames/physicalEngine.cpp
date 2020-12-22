@@ -388,7 +388,7 @@ void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
 		if (direction == _HIGHSPEED)
 		{
 			walkDirection = forwardDir;
-			walkSpeed *= 2;
+			walkSpeed *= 1.5;
 			//按照方向移动角色
 		}
 		if (direction == _JUMP && m_character && m_character->canJump())
@@ -428,12 +428,16 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 		{
 			if (direction2 == _FORWARD)
 			{
-				walkDirection = (forwardDir + rightwardDir).normalized();
+				walkDirection = (forwardDir + rightwardDir) .normalized();
 				//按照方向移动角色
 			}
 			else if (direction2 == _BACKWARD)
 				walkDirection = (-forwardDir + rightwardDir).normalized();
-
+			else if (direction2 == _HIGHSPEED)
+			{
+				walkDirection = (forwardDir  + rightwardDir).normalized();
+				walkSpeed *= 1.5;
+			}
 		}
 
 		if (direction1 == _LEFT)
@@ -444,8 +448,12 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 				//按照方向移动角色
 			}
 			else if (direction2 == _BACKWARD)
-				walkDirection = (-forwardDir - rightwardDir).normalized();
-
+				walkDirection = (-forwardDir - rightwardDir) .normalized();
+			else if (direction2 == _HIGHSPEED)
+			{
+				walkDirection = (forwardDir  - rightwardDir) .normalized();
+				walkSpeed *= 1.5;
+			}
 		}
 
 		//cout << walkDirection[0] <<"  "<< walkDirection[1] <<"    "<< walkDirection [2]<<endl;

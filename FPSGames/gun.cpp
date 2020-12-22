@@ -109,11 +109,12 @@ void Gun::Display(Camera& camera, Shader& shader)
     }
     if (MouseEvent == GLFW_MOUSE_BUTTON_LEFT)
     {
-        std::cout << "!!" << std::endl;
+        std::cout << "FIRE" << std::endl;
         _Animation_status = Gun_Animation::Fire;
         _Animation_Timer.StartTimer();
         Display_FileGun(camera, shader);
     }
+
 }
 
 

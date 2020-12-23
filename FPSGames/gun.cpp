@@ -81,9 +81,9 @@ void Gun::Display_FileGun(Camera& camera, Shader& shader)
 
     _Animation_Timer.StopTimer();
     float curTimer = _Animation_Timer.GetTimerSec();
-    if (curTimer > 1.0)
+    if (curTimer > 0.1)
     {
-        curTimer = 1.0;
+        curTimer = 0.1 ;
         _Animation_status = Gun_Animation::Idle;
     }
     float Total_Timer = 0.2;
@@ -97,15 +97,52 @@ void Gun::Display_FileGun(Camera& camera, Shader& shader)
     _GunModel.Draw(shader);
 }
 
+void Gun::Display_RunGun(Camera& camera, Shader& shader)
+{
+    glm::mat4 modelMatrix = glm::mat4(1.0f);
+    modelMatrix = glm::translate(modelMatrix, camera.getPosition());
+    glm::vec3 look = camera.Front;
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(camera.getYaw()), WORLD_UP);
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(camera.getPitch()), WORLD_X);
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(-180.0f), WORLD_UP);
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(5.0f), WORLD_UP);
+    //modelMatrix = glm::rotate(modelMatrix, glm::radians(5.0f+15.0f), WORLD_X);
+    modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f, -0.12f, 0.35f));
+
+    _Animation_Timer.StopTimer();
+    float curTimer = _Animation_Timer.GetTimerSec();
+    if (curTimer > 0.2)
+    {
+        curTimer = 0.2;
+        _Animation_status = Gun_Animation::Idle;
+    }
+    float Total_Timer = 0.2;
+    float X_Offset = 80.0f;
+    float Y_Offset = 20.0f;
+    float Move = -0.1f;
+    modelMatrix = glm::translate(modelMatrix, glm::vec3(-Move *5* curTimer / Total_Timer, Move *2* curTimer / Total_Timer, 0.0f));
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(curTimer/ Total_Timer*X_Offset), WORLD_UP);
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(curTimer / Total_Timer * Y_Offset), WORLD_X);
+    
+    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.005f, 0.005f, 0.005f));
+
+    shader.setMat4("model", modelMatrix);
+
+    _GunModel.Draw(shader);
+}
+
 void Gun::Display(Camera& camera, Shader& shader)
 {
-
+    
     if (MouseEvent == 0xff)
     {
         if (_Animation_status == Gun_Animation::Idle)
             Display_HoldGun(camera, shader);
         if (_Animation_status == Gun_Animation::Fire)
             Display_FileGun(camera, shader);
+        if (_Animation_status == Gun_Animation::Run)
+            Display_RunGun(camera, shader);
+            
     }
     if (MouseEvent == GLFW_MOUSE_BUTTON_LEFT)
     {
@@ -115,6 +152,15 @@ void Gun::Display(Camera& camera, Shader& shader)
         Display_FileGun(camera, shader);
     }
 
+    else if (MouseEvent == GLFW_KEY_LEFT_SHIFT)
+    {
+        
+        //std::cout << Movecount << std::endl;
+        _Animation_status = Gun_Animation::Run;
+        if(Movecount==1)
+            _Animation_Timer.StartTimer();
+        Display_RunGun(camera, shader);
+    }
 }
 
 

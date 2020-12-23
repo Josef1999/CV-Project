@@ -6,3 +6,5 @@
 */
 
 extern int MouseEvent;
+extern int KeyBoardEvent;
+extern int Movecount;

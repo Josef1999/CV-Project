@@ -6,7 +6,8 @@
 enum Gun_Animation
 {
 	Idle,
-	Fire
+	Fire,
+	Run
 };
 
 /*
@@ -34,5 +35,6 @@ public:
 	Model& GetModel();
 	void Display_HoldGun(Camera& camera, Shader& shader);
 	void Display_FileGun(Camera& camera, Shader& shader);
+	void Display_RunGun(Camera& camera, Shader& shader);
 	void Display(Camera& camera, Shader& shader);
 };

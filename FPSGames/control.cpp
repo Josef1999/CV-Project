@@ -27,12 +27,16 @@ void handleKeyInput(GLFWwindow* window)
         {
             my_bt.movePlayer(_LEFT, _HIGHSPEED, deltaTime);
             MouseEvent = GLFW_KEY_LEFT_SHIFT;
+            Movecount++;
         }
         else
         {
             my_bt.movePlayer(_LEFT, _FORWARD, deltaTime);
-            MouseEvent = 0xff;
+            Movecount=0;
         }
+        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
+            if (MouseEvent == GLFW_KEY_LEFT_SHIFT)
+                MouseEvent = 0xff;
     }
     else if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
     {
@@ -40,58 +44,66 @@ void handleKeyInput(GLFWwindow* window)
         {
             my_bt.movePlayer(_RIGHT, _HIGHSPEED, deltaTime);
             MouseEvent = GLFW_KEY_LEFT_SHIFT;
+            Movecount++;
         }
         else
         {
             my_bt.movePlayer(_RIGHT, _FORWARD, deltaTime);
-            MouseEvent = 0xff;
+            Movecount = 0;
         }
+        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
+            if (MouseEvent == GLFW_KEY_LEFT_SHIFT)
+                MouseEvent = 0xff;
     }
     else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
     {
         my_bt.movePlayer(_LEFT, _BACKWARD, deltaTime);
-        MouseEvent = 0xff;
+        //MouseEvent = 0xff;
     }
     else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
     {
         my_bt.movePlayer(_RIGHT, _BACKWARD, deltaTime);
-        MouseEvent = 0xff;
+        //MouseEvent = 0xff;
     }
     else
     {
-        
+
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         {
-            if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)     
+            if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
             {
                 my_bt.movePlayer(_HIGHSPEED, deltaTime);
                 MouseEvent = GLFW_KEY_LEFT_SHIFT;
+                Movecount++;
             }
             else
             {
                 my_bt.movePlayer(_FORWARD, deltaTime);
-                MouseEvent =0xff;
+                Movecount = 0;
             }
+            if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
+                if(MouseEvent == GLFW_KEY_LEFT_SHIFT)
+                    MouseEvent = 0xff;
         }
-        
+
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
         {
             my_bt.movePlayer(_BACKWARD, deltaTime);
-            MouseEvent = 0xff;
+            //MouseEvent = 0xff;
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         {
             my_bt.movePlayer(_LEFT, deltaTime);
-            MouseEvent = 0xff;
+            //MouseEvent = 0xff;
         }
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         {
             my_bt.movePlayer(_RIGHT, deltaTime);
-            MouseEvent = 0xff;
+            //MouseEvent = 0xff;
         }
-        
+
     }
-    
+
 
     // 回调监听按键（一个按键只会触发一次事件）
     glfwSetKeyCallback(window, key_callback);
@@ -103,12 +115,13 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     //预留给换弹
     if (key == GLFW_KEY_R && action == GLFW_PRESS) {
         std::cout << "Pressed R" << std::endl;
-        MouseEvent = GLFW_KEY_R;
+        KeyBoardEvent = GLFW_KEY_R;
         ;
     }
-    else
-        MouseEvent =0xff;
 
+    else
+        KeyBoardEvent =0xff;
+    
 }
 
 // 鼠标移动
@@ -133,7 +146,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 void mouseButton_callback(GLFWwindow* window, int button, int action, int mods)
 {
-    if (action == GLFW_PRESS || action == GLFW_REPEAT)
+    if ((action == GLFW_PRESS || action == GLFW_REPEAT)&& MouseEvent!= GLFW_KEY_LEFT_SHIFT)
     {
         switch (button)
         {

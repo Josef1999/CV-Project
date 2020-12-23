@@ -8,7 +8,7 @@ C:\Users\67093\Desktop\CV-Project\FPSGames\control.cpp(140,13): warning C4244: �
 C:\Users\67093\Desktop\CV-Project\FPSGames\control.cpp(141,13): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
 LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
   正在生成代码
-  3 of 1933 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  2 of 1933 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     7 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成

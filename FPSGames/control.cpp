@@ -115,12 +115,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     //Ô¤Áô¸ø»»µ¯
     if (key == GLFW_KEY_R && action == GLFW_PRESS) {
         std::cout << "Pressed R" << std::endl;
-        KeyBoardEvent = GLFW_KEY_R;
+        //MouseEvent = GLFW_KEY_R;
         ;
     }
 
-    else
-        KeyBoardEvent =0xff;
+    //else
+        //MouseEvent =0xff;
     
 }
 

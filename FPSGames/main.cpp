@@ -1,8 +1,9 @@
 // 12.23 加入奔跑动作，修复子弹射击枪口动画失效
 // 12.25 加入敌人， 敌人被击中会有弹跳反馈（太远好像不行...）
+// 12.25 加入下蹲起立和收枪动画，加入连射，修复动画衔接BUG
 //                p.s. 地图是真的丑
 
-#define DEBUG_WITHOUT_BULLET_MAP
+//#define DEBUG_WITHOUT_BULLET_MAP
 
 
 #include"include/glad/glad.h"

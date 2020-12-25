@@ -26,7 +26,7 @@
 #include "control.h"
 #include "shaderRender.h"
 #include "physicalEngine.h"
-
+#include "universal.h"
 
 enum ObjIndex
 {
@@ -331,9 +331,39 @@ void myBulletEngine::renderPlayer(Shader& shader, Camera& camera)
 
 	glm::mat4 positionTrans = glm::make_mat4(mat);
 
-	camera.Position[0] = positionTrans[3][0];
-	camera.Position[1] = positionTrans[3][1]+5.0f;
-	camera.Position[2] = positionTrans[3][2];
+	if (BodyEvent == GLFW_KEY_LEFT_CONTROL)//下蹲
+	{
+		if (Bodycount == 1)
+			_Cam_Animation_Timer.StartTimer();
+		_Cam_Animation_Timer.StopTimer();
+		float curTimer = _Cam_Animation_Timer.GetTimerSec();
+		if (curTimer > 0.2)
+			curTimer = 0.2;
+		float Total_Timer = 0.2;
+		float Y_Offset = 5.0f;
+		//cout << curTimer << endl;
+		camera.Position[0] = positionTrans[3][0];
+		camera.Position[1] = positionTrans[3][1] + 5.0f - curTimer / Total_Timer * Y_Offset;
+		camera.Position[2] = positionTrans[3][2];
+	}
+	else//起立
+	{
+		if (Bodycount != 0)
+		{
+			Bodycount = 0;
+			_Cam_Animation_Timer.StartTimer();
+		}
+		_Cam_Animation_Timer.StopTimer();
+		float curTimer = _Cam_Animation_Timer.GetTimerSec();
+		if (curTimer > 0.2)
+			curTimer = 0.2;
+		float Total_Timer = 0.2;
+		float Y_Offset = 5.0f;
+		//cout << curTimer << endl;
+		camera.Position[0] = positionTrans[3][0];
+		camera.Position[1] = positionTrans[3][1] + curTimer / Total_Timer * Y_Offset;
+		camera.Position[2] = positionTrans[3][2];
+	}
 	glm::mat4 model;
 	//    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
 	model = positionTrans * model;

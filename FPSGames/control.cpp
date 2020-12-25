@@ -157,9 +157,12 @@ void mouseButton_callback(GLFWwindow* window, int button, int action, int mods)
             std::cout << "Pressed MOUSE LEFT BUTTON" << std::endl;
             glm::vec3 look = camera.Front;
             std::cout << "camera.Front: " << camera.Front.x << "," << camera.Front.y << "," << camera.Front.z << std::endl;
+
             my_bt.colisionDetect(look, camera);
+
             btRigidBody* sphere = my_bt.addSphere(1.0, camera.Position.x + look.x, camera.Position.y + look.y, camera.Position.z + look.z, 1.0);
             sphere->setLinearVelocity(btVector3(200 * look.x, 200 * look.y, 200 * look.z));
+
 #endif
             break;
         }

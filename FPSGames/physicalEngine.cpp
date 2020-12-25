@@ -37,7 +37,6 @@ enum ObjIndex
 	bt_Ground
 };
 
-
 // Cube定点数据
 float cube_vertices[] = {
 	// positions          // normals           // texture coords
@@ -193,6 +192,8 @@ void myBulletEngine::addMap(Model& model) {
 	}
 }
 
+
+
 void myBulletEngine::addPlayer() {
 	btTransform t;
 	t.setIdentity();
@@ -233,6 +234,38 @@ btRigidBody* myBulletEngine::addSphere(float radius, float x, float y, float z, 
 
 	//生成形状
 	btSphereShape* sphere = new btSphereShape(radius);
+	
+	btVector3 inertia(0, 0, 0);
+	//质量为零即静态物体
+	if (mass != 0.0) {
+		sphere->calculateLocalInertia(mass, inertia);
+	}
+	//为物体增添运动姿态信息
+	btMotionState* motion = new btDefaultMotionState(t);
+	btRigidBody::btRigidBodyConstructionInfo info(mass, motion, sphere);
+	btRigidBody* body = new btRigidBody(info);
+	//添加到世界中
+	body->setRestitution(btScalar(0.5));
+	world->addRigidBody(body);
+
+	body->getCollisionShape()->setUserIndex(bt_Enemy);
+
+
+
+	bodies.push_back(body);
+
+	return body;
+}
+
+btRigidBody* myBulletEngine::addEnemy(float scale, float x, float y, float z, float mass)
+{
+	//初始化位姿信息
+	btTransform t;
+	t.setIdentity();
+	t.setOrigin(btVector3(x, y, z));
+	//btBoxShape::btBoxShape(const btVector3 & boxHalfExtents)
+	//生成形状
+	btBoxShape* sphere = new btBoxShape(btVector3(1.0f* scale,2.4f* scale,1.0f* scale));
 	btVector3 inertia(0, 0, 0);
 	//质量为零即静态物体
 	if (mass != 0.0) {
@@ -246,10 +279,13 @@ btRigidBody* myBulletEngine::addSphere(float radius, float x, float y, float z, 
 	body->setRestitution(btScalar(0.5));
 	world->addRigidBody(body);
 	body->getCollisionShape()->setUserIndex(bt_Enemy);
-	bodies.push_back(body);
+
+
+	enemies.push_back(body);
 
 	return body;
 }
+
 btRigidBody* myBulletEngine::addBullet(float radius, float x, float y, float z, float mass)
 {
 	//初始化位姿信息
@@ -275,6 +311,7 @@ btRigidBody* myBulletEngine::addBullet(float radius, float x, float y, float z, 
 	body->getCollisionShape()->setUserIndex(bt_Bullet);
 
 	world->addRigidBody(body);
+
 
 	bodies.push_back(body);
 
@@ -340,6 +377,38 @@ void myBulletEngine::renderMyMap(Model& model, Shader& shader) {
 
 }
 
+void myBulletEngine::renderEnemy(Model& model, Shader& shader) {
+	for (int i = 0; i < enemies.size(); i++) {
+		btTransform t;
+		float mat[16];
+		enemies[i]->getMotionState()->getWorldTransform(t);
+		float r = 0.1/1.5;// ((btBoxShape*)enemies[i]->getCollisionShape());
+
+		t.getOpenGLMatrix(mat);
+
+		glm::mat4 positionTrans = glm::make_mat4(mat);
+
+		glm::mat4 modelMatrix;
+		//    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+		modelMatrix = positionTrans * modelMatrix;
+
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(r));
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(0,0.1*1.5,0));
+
+		//glUniformMatrix4fv(glGetUniformLocation(_shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		shader.setMat4("model", modelMatrix);
+
+		// 视图转换
+		glm::mat4 viewMatrix = camera.GetViewMatrix();
+		shader.setMat4("view", viewMatrix);
+
+		// 投影转换
+		glm::mat4 projMatrix = camera.GetProjMatrix((float)SCR_WIDTH / (float)SCR_HEIGHT);
+		shader.setMat4("projection", projMatrix);
+
+		model.Draw(shader);
+	}
+}
 
 
 void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
@@ -482,12 +551,25 @@ void myBulletEngine::colisionDetect(glm::vec3 look, Camera camera){
 	world->rayTest(btFrom, btTo, res); // m_btWorld is btDiscreteDynamicsWorld
 
 	if (res.hasHit()) {
-		///res.m_collisionObject->getCollisionShape()->getName
 		int get_num = res.m_collisionObject->getCollisionShape()->getUserIndex();
-		switch (get_num)
+		switch (abs(get_num))
 		{
 		case bt_Enemy:
-			printf("Collision bt_Enemy at: <%.2f, %.2f, %.2f>\n", res.m_hitPointWorld.getX(), res.m_hitPointWorld.getY(), res.m_hitPointWorld.getZ());
+			for (int i = 0; i < enemies.size(); i++) {
+				auto cur_enemy = enemies[i];
+				auto cur_collison_obj = cur_enemy->getCollisionShape();
+
+				if (cur_collison_obj == res.m_collisionObject->getCollisionShape()) {
+					printf("Collision bt_Enemy[%d]_%d at: <%.2f, %.2f, %.2f>\n", i, cur_collison_obj->getUserIndex(),
+													res.m_hitPointWorld.getX(), res.m_hitPointWorld.getY(), res.m_hitPointWorld.getZ());
+					
+					btVector3 cur_v = cur_enemy->getLinearVelocity();
+					if(abs(cur_v.getY()) < 0.01f )
+						cur_enemy->setLinearVelocity(btVector3(0, 10, 0));
+
+				}
+			}
+			
 			break;
 		case bt_Map:
 			printf("Collision bt_Map at: <%.2f, %.2f, %.2f>\n", res.m_hitPointWorld.getX(), res.m_hitPointWorld.getY(), res.m_hitPointWorld.getZ());

@@ -1,6 +1,5 @@
-// 12.22 解决了地图模型导入的问题 可以上坡 爬箱子
-// 待修复的bug ： 跑动射击....
-//                会射击到自己人物模型的物理体...你三百六十度打一圈就明白了
+// 12.23 加入奔跑动作，修复子弹射击枪口动画失效
+// 12.25 加入敌人， 敌人被击中会有弹跳反馈（太远好像不行...）
 //                p.s. 地图是真的丑
 
 #define DEBUG_WITHOUT_BULLET_MAP
@@ -134,6 +133,7 @@ int main()
 	Model objModel(FileSystem::getPath("asset/models/obj//Map/new_scene.obj"));//Castle Tower.obj
 	//Model objModel_for_physical(FileSystem::getPath("asset/models/obj//Map/new_scene.obj"));//Castle Tower.obj
 
+	Model enemyModel(FileSystem::getPath("asset/models/obj/Enemy/enemy.obj"));//Castle Tower.obj
 
 
 	//初始化物理引擎
@@ -142,10 +142,15 @@ int main()
 	my_bt.addMap(objModel);
 #endif // DEBUG_WITHOUT_BULLET_MAP
 
-	my_bt.addSphere(1.0, 20, 50, 0, 1.0);
-	my_bt.addSphere(1.0, 30, 30, 0, 1.0);
-	my_bt.addSphere(1.0, 40, 90, 0, 1.0);
-	my_bt.addSphere(1.0, 50, 100, 0, 1.0);
+	//my_bt.addSphere(1.0, 20, 50, 0, 1.0);
+	//my_bt.addSphere(1.0, 30, 30, 0, 1.0);
+	//my_bt.addSphere(1.0, 40, 90, 0, 1.0);
+	//my_bt.addSphere(1.0, 50, 100, 0, 1.0);
+
+	my_bt.addEnemy(2.0, 20, 50, 0, 100.0);
+	my_bt.addEnemy(2.0, 30, 30, 0, 100.0);
+	my_bt.addEnemy(2.0, 40, 90, 0, 100.0);
+	my_bt.addEnemy(2.0, 50, 100, 0, 100.0);
 
 	my_bt.addPlayer();
 
@@ -251,6 +256,8 @@ int main()
 		{
 			renderSphere(my_bt.bodies[i], shader, cubeVAO);
 		}
+
+		my_bt.renderEnemy(enemyModel, shader);
 		my_bt.renderPlayer(shader, camera);
 
 

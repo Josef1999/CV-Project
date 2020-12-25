@@ -6,3 +6,4 @@
 */
 
 extern int MouseEvent;
+extern int Movecount;

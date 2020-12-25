@@ -47,10 +47,10 @@ void renderCube(Shader& shader, unsigned int cubeVAO) {
 
 void renderSphere(btRigidBody* sphere, Shader& shader, unsigned int cubeVAO)
 {
-	if (sphere->getCollisionShape()->getShapeType() != SPHERE_SHAPE_PROXYTYPE) {
-		//        std::cout << RED << "sphere error" << RESET << std::endl;
-		return;
-	}
+	//if (sphere->getCollisionShape()->getShapeType() != SPHERE_SHAPE_PROXYTYPE) {
+	//	//        std::cout << RED << "sphere error" << RESET << std::endl;
+	//	return;
+	//}
 	float r = ((btSphereShape*)sphere->getCollisionShape())->getRadius();
 	btTransform t;
 	sphere->getMotionState()->getWorldTransform(t);
@@ -71,6 +71,9 @@ void renderSphere(btRigidBody* sphere, Shader& shader, unsigned int cubeVAO)
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 }
+
+
+
 
 // 设置光照相关属性
 void renderLight(Shader& shader, glm::mat4 lightSpaceMatrix, unsigned int depthMap)

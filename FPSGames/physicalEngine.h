@@ -16,6 +16,7 @@ public:
 	btConstraintSolver* solver;
 
 	std::vector<btRigidBody*> bodies;
+	std::vector<btRigidBody*> enemies;
 	std::vector<btRigidBody*> my_map_obj;
 
 	btRigidBody* cube = NULL;
@@ -38,8 +39,12 @@ public:
 	btRigidBody* addSphere(float radius, float x, float y, float z, float mass);
 	btRigidBody* addBullet(float radius, float x, float y, float z, float mass);
 
+	btRigidBody* addEnemy(float radius, float x, float y, float z, float mass);
+
 	void renderPlayer(Shader& shader, Camera& camera);
 	void renderMyMap(Model& model, Shader& shader);
+	void renderEnemy(Model& model, Shader& shader);
+
 
 	void movePlayer(Direction direction, float deltaTime);
 	void movePlayer(Direction direction1, Direction direction2, float deltaTime);

@@ -446,7 +446,7 @@ void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
 	{
 		
 		btScalar walkVelocity = btScalar(1.1) * 8.0 * 2; // 4 km/h -> 1.1 m/s
-		btScalar walkSpeed = walkVelocity * deltaTime * 2.0f;
+		btScalar walkSpeed = walkVelocity * deltaTime * 2.0f* SpeedAdjust;
 		btVector3 walkDirection = btVector3(0.0, 0.0, 0.0);
 
 		//获取本地坐标向量,并且单位化
@@ -507,7 +507,7 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 	if (world)
 	{
 		btVector3 walkDirection = btVector3(0.0, 0.0, 0.0);
-		btScalar walkVelocity = btScalar(1.1) * 8.0 *2; // 4 km/h -> 1.1 m/s
+		btScalar walkVelocity = btScalar(1.1) * 8.0 *2* SpeedAdjust; // 4 km/h -> 1.1 m/s
 		btScalar walkSpeed = walkVelocity * deltaTime * 2.0f;
 
 		//获取本地坐标向量,并且单位化

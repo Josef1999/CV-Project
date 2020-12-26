@@ -7,6 +7,7 @@ Gun::Gun(string const& ModelPath, int MaxAmmo, int Damage): _GunModel(ModelPath)
 	_Damage = Damage;
 	_CurAmmo = 0;
     _Animation_status = Gun_Animation::Idle;
+    _Idle_status = Idle_Mode::Hip_Fire;
 }
 
 Gun::~Gun()
@@ -53,10 +54,15 @@ void Gun::Display_HoldGun(Camera & camera, Shader& shader)
     // modelMatrix = glm::rotate(modelMatrix, glm::radians(camera.getYaw() / 2), WORLD_UP);
     modelMatrix = glm::rotate(modelMatrix, glm::radians(-180.0f), WORLD_UP);
 
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(5.0f), WORLD_UP);
+   
 
-    modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f, -0.12f, 0.35f));
-
+    if (_Idle_status == Idle_Mode::Hip_Fire)
+    {
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(5.0f), WORLD_UP);
+        modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f, -0.12f, 0.35f));
+    }
+    else if (_Idle_status == Idle_Mode::ADS_Aim)
+        modelMatrix = glm::translate(modelMatrix, glm::vec3(0, -0.22f, 0.50f));
     
     modelMatrix = glm::scale(modelMatrix, glm::vec3(0.005f, 0.005f, 0.005f));
 
@@ -76,8 +82,17 @@ void Gun::Display_FileGun(Camera& camera, Shader& shader)
     modelMatrix = glm::rotate(modelMatrix, glm::radians(camera.getYaw()), WORLD_UP);
     modelMatrix = glm::rotate(modelMatrix, glm::radians(camera.getPitch()), WORLD_X);
     modelMatrix = glm::rotate(modelMatrix, glm::radians(-180.0f), WORLD_UP);
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(5.0f), WORLD_UP);
-    modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f, -0.12f, 0.35f));
+    
+
+    if (_Idle_status == Idle_Mode::Hip_Fire)
+    {
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(5.0f), WORLD_UP);
+        modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f, -0.12f, 0.35f));
+    }
+    else if (_Idle_status == Idle_Mode::ADS_Aim)
+        modelMatrix = glm::translate(modelMatrix, glm::vec3(0, -0.22f, 0.50f));
+    //modelMatrix = glm::rotate(modelMatrix, glm::radians(5.0f), WORLD_UP);
+    //modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f, -0.12f, 0.35f));
 
     _Animation_Timer.StopTimer();
     float curTimer = _Animation_Timer.GetTimerSec();
@@ -230,6 +245,7 @@ void Gun::Display_AimGun(Camera& camera, Shader& shader)
         curTimer = 0.5;
         Shootcount = 0;
         AimCount = 0;
+        _Idle_status = Idle_Mode::ADS_Aim;
         _Animation_status = Gun_Animation::Idle;
     }
     float Total_Timer = 0.5;
@@ -249,6 +265,8 @@ void Gun::Display_AimGun(Camera& camera, Shader& shader)
 
 void Gun::Display(Camera& camera, Shader& shader)
 {
+    std::cout << MouseEvent << std::endl;
+
     if (MouseEvent == 0xff)
     {
         if (_Animation_status == Gun_Animation::Idle)
@@ -270,6 +288,12 @@ void Gun::Display(Camera& camera, Shader& shader)
                 _Stop = 1;
             }
             Display_StopRun(camera, shader);
+        }
+
+        if (_Animation_status == Gun_Animation::StopAim)
+        {
+            // std::cout << "Stop Aim" << std::endl;
+            // _Idle_status = Idle_Mode::Hip_Fire;
         }
     }
     
@@ -298,12 +322,22 @@ void Gun::Display(Camera& camera, Shader& shader)
         break;
 
     case GLFW_MOUSE_BUTTON_RIGHT:
+        if (_Idle_status == Idle_Mode::ADS_Aim)
+        {
+            _Idle_status = Idle_Mode::Hip_Fire;
+            _Animation_status = Gun_Animation::Idle;
+            break;
+        }
+        else
+            _Idle_status = Idle_Mode::ADS_Aim;
+
         _Animation_status = Gun_Animation::Aim;
         _Animation_Timer.StartTimer();
         Display_AimGun(camera, shader);
         break;
 
     default:
+
         break;
     }
 }

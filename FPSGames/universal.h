@@ -10,5 +10,6 @@ extern int Movecount;
 extern int BodyEvent;//控制相机下蹲
 extern int Bodycount;
 extern int Shootcount;//控制连射
-extern int AimCount;
+extern int AimCount;	//	控制开镜
+extern int ReturnHip;
 extern float SpeedAdjust;//控制下蹲全局速度

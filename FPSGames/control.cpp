@@ -150,16 +150,9 @@ void handleKeyInput(GLFWwindow* window)
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS && MouseEvent != GLFW_KEY_LEFT_SHIFT && AimCount == 0)
     {
         AimCount = 1;
+        ReturnHip = 1;
         MouseEvent = GLFW_MOUSE_BUTTON_RIGHT;
         std::cout << "Pressed MOUSE RIGHT BUTTON" << std::endl;
-    }
-    else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS && MouseEvent != GLFW_MOUSE_BUTTON_RIGHT && Shootcount == 1)
-    {
-        MouseEvent = 0xff;
-    }
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE && MouseEvent == GLFW_MOUSE_BUTTON_RIGHT)
-    {
-        MouseEvent = 0xff;
     }
 
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && MouseEvent != GLFW_KEY_LEFT_SHIFT&& Shootcount==0)
@@ -177,7 +170,7 @@ void handleKeyInput(GLFWwindow* window)
     {
         MouseEvent = 0xff;
     }
-    if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE&& MouseEvent== GLFW_MOUSE_BUTTON_LEFT)
+    if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE && MouseEvent== GLFW_MOUSE_BUTTON_LEFT)
     {
         MouseEvent = 0xff;
     }

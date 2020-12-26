@@ -10,9 +10,15 @@ enum Gun_Animation
 	Run,
 	StopRun,
 	Aim,
+	StopAim,
 	Reload
 };
 
+enum Idle_Mode
+{
+	Hip_Fire,
+	ADS_Aim
+};
 
 /*
 	_GunModel	Ç¹ÐµÄ£ÐÍ
@@ -29,6 +35,7 @@ private:
 	int _Stop;
 	Timer _Animation_Timer;
 	Gun_Animation _Animation_status;
+	Idle_Mode _Idle_status;
 	void GunRotate(glm::mat4& modelMatrix, const glm::vec3& Point, float degree);
 public:
 	Gun() = delete;

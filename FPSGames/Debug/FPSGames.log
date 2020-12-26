@@ -2,23 +2,23 @@
 D:\CV-Project\FPSGames\include\learnopengl\model.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
 D:\CV-Project\FPSGames\include\glad\glad.h(32): message : see previous definition of 'APIENTRY'
-D:\CV-Project\FPSGames\gun.cpp(83,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\gun.cpp(86,24): warning C4305: '=': truncation from 'double' to 'float'
-D:\CV-Project\FPSGames\gun.cpp(91,28): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\CV-Project\FPSGames\gun.cpp(92,25): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\CV-Project\FPSGames\gun.cpp(114,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\gun.cpp(117,23): warning C4305: '=': truncation from 'double' to 'float'
-D:\CV-Project\FPSGames\gun.cpp(122,28): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\CV-Project\FPSGames\gun.cpp(150,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\gun.cpp(153,23): warning C4305: '=': truncation from 'double' to 'float'
-D:\CV-Project\FPSGames\gun.cpp(157,28): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\CV-Project\FPSGames\gun.cpp(188,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\CV-Project\FPSGames\gun.cpp(226,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\CV-Project\FPSGames\gun.cpp(98,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\CV-Project\FPSGames\gun.cpp(101,24): warning C4305: '=': truncation from 'double' to 'float'
+D:\CV-Project\FPSGames\gun.cpp(106,28): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\CV-Project\FPSGames\gun.cpp(107,25): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\CV-Project\FPSGames\gun.cpp(129,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\CV-Project\FPSGames\gun.cpp(132,23): warning C4305: '=': truncation from 'double' to 'float'
+D:\CV-Project\FPSGames\gun.cpp(137,28): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\CV-Project\FPSGames\gun.cpp(165,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\CV-Project\FPSGames\gun.cpp(168,23): warning C4305: '=': truncation from 'double' to 'float'
+D:\CV-Project\FPSGames\gun.cpp(172,28): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\CV-Project\FPSGames\gun.cpp(203,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\CV-Project\FPSGames\gun.cpp(241,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
   Generating code
-  4 of 1934 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  2 of 1936 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    8 functions had inline decision re-evaluated but remain unchanged
+    14 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 glfw3.lib(context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(context.obj)' or at 'D:\CV-Project\Debug\glfw.pdb'; linking object as if no debug info
 glfw3.lib(init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(init.obj)' or at 'D:\CV-Project\Debug\glfw.pdb'; linking object as if no debug info

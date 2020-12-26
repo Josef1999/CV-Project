@@ -197,7 +197,7 @@ void myBulletEngine::addMap(Model& model) {
 void myBulletEngine::addPlayer() {
 	btTransform t;
 	t.setIdentity();
-	t.setOrigin(btVector3(10, 0, 0));
+	t.setOrigin(btVector3(100, 0, 0));
 
 	m_ghostObject = new btPairCachingGhostObject();
 	m_ghostObject->setWorldTransform(t);
@@ -492,7 +492,7 @@ void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
 		}
 		if (direction == _JUMP && m_character && m_character->canJump())
 		{
-			btVector3 v = btVector3(0, 100/2, 0);
+			btVector3 v = btVector3(0, 100/2+20, 0);
 			m_character->jump(v);
 			//按照方向移动角色
 

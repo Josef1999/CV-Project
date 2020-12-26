@@ -8,8 +8,11 @@ enum Gun_Animation
 	Idle,
 	Fire,
 	Run,
-	StopRun
+	StopRun,
+	Aim,
+	Reload
 };
+
 
 /*
 	_GunModel	Ç¹ÐµÄ£ÐÍ
@@ -39,5 +42,7 @@ public:
 	void Display_FileGun(Camera& camera, Shader& shader);
 	void Display_RunGun(Camera& camera, Shader& shader);
 	void Display_StopRun(Camera& camera, Shader& shader);
+	void Display_ReloadGun(Camera& camera, Shader& shader);
+	void Display_AimGun(Camera& camera, Shader& shader);
 	void Display(Camera& camera, Shader& shader);
 };

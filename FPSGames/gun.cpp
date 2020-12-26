@@ -190,23 +190,27 @@ void Gun::Display(Camera& camera, Shader& shader)
             Display_StopRun(camera, shader);
         }
     }
-    if (MouseEvent == GLFW_MOUSE_BUTTON_LEFT)
+    
+    switch (MouseEvent)
     {
-        //std::cout << "FIRE" << std::endl;
+    case GLFW_MOUSE_BUTTON_LEFT:
         _Animation_status = Gun_Animation::Fire;
         _Animation_Timer.StartTimer();
         Display_FileGun(camera, shader);
-    }
-
-    else if (MouseEvent == GLFW_KEY_LEFT_SHIFT)
-    {
+        break;
+    case GLFW_KEY_LEFT_SHIFT:
         _Stop = 0;
-        //std::cout << Movecount << std::endl;
         _Animation_status = Gun_Animation::Run;
-        if(Movecount==1)
+        if (Movecount == 1)
             _Animation_Timer.StartTimer();
         Display_RunGun(camera, shader);
+        break;
+    case GLFW_KEY_R:
+        break;
+    case GLFW_MOUSE_BUTTON_RIGHT:
+        break;
+    default:
+        break;
     }
-
 }
 

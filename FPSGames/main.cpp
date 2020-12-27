@@ -144,25 +144,8 @@ int main()
 #endif // DEBUG_WITHOUT_BULLET_MAP
 
 
-	my_bt.addEnemy(2.0, 20, 50, 100, 100.0);
-	my_bt.addEnemy(2.0, 30, 30, 220, 100.0);
-	my_bt.addEnemy(2.0, 40, 90, 220, 100.0);
-	my_bt.addEnemy(2.0, 50, 100, 220, 100.0);
-
-	my_bt.addEnemy(2.0, 120, 50, -100, 100.0);
-	my_bt.addEnemy(2.0, 230, 30, 20, 100.0);
-	my_bt.addEnemy(2.0, 140, 30, 20, 100.0);
-	my_bt.addEnemy(2.0, 250, 30, 220, 100.0);
-
 	my_bt.addEnemy(2.0, 220, 50, 0, 100.0);
 	my_bt.addEnemy(2.0, 230, 30, -100, 100.0);
-	my_bt.addEnemy(2.0, 140, 30, 140, 100.0);
-	my_bt.addEnemy(2.0, 150, 30, -130, 100.0);
-
-	my_bt.addEnemy(2.0, 220, 50, 99, 100.0);
-	my_bt.addEnemy(2.0, 330, 30, 20, 100.0);
-	my_bt.addEnemy(2.0, -40, 30, 60, 100.0);
-	my_bt.addEnemy(2.0, -50, 30, -20, 100.0);
 
 	my_bt.addPlayer();
 

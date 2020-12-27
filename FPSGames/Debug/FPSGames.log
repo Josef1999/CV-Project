@@ -5,31 +5,12 @@ F:\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005
 C:\Users\THINK\Desktop\CV-Project\FPSGames\include\glad\glad.h(32): message : 参见“APIENTRY”的前一个定义
 C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(197,24): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
 C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(248,21): warning C4018: “<”: 有符号/无符号不匹配
-C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(274,21): warning C4018: “<”: 有符号/无符号不匹配
-C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(403,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-  physicalEngine.cpp
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-C:\Users\THINK\Desktop\CV-Project\FPSGames\include\learnopengl\model.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-F:\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
-C:\Users\THINK\Desktop\CV-Project\FPSGames\include\glad\glad.h(32): message : 参见“APIENTRY”的前一个定义
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(160,20): warning C4018: “<”: 有符号/无符号不匹配
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(167,21): warning C4018: “<”: 有符号/无符号不匹配
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(339,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(341,18): warning C4305: “=”: 从“double”到“float”截断
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(342,26): warning C4305: “初始化”: 从“double”到“float”截断
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(357,18): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(359,18): warning C4305: “=”: 从“double”到“float”截断
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(360,26): warning C4305: “初始化”: 从“double”到“float”截断
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(380,20): warning C4018: “<”: 有符号/无符号不匹配
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(411,20): warning C4018: “<”: 有符号/无符号不匹配
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(415,20): warning C4305: “初始化”: 从“double”到“float”截断
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(510,25): warning C4244: “初始化”: 从“double”转换到“btScalar”，可能丢失数据
-C:\Users\THINK\Desktop\CV-Project\FPSGames\physicalEngine.cpp(588,22): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(406,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
 LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
   正在生成代码
-  12 of 1928 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+  1 of 1928 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    13 functions had inline decision re-evaluated but remain unchanged
+    10 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
 glfw3.lib(context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(context.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
 glfw3.lib(init.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(init.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
@@ -45,5 +26,5 @@ glfw3.lib(win32_thread.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使�
 glfw3.lib(win32_window.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_window.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
 glfw3.lib(wgl_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(wgl_context.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
 glfw3.lib(egl_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(egl_context.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(osmesa_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(osmesa_context.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(osmesa_context.obj) : warning LNK4099: 未找到 PDB“”(使用“glfw3.lib(osmesa_context.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
   FPSGames.vcxproj -> C:\Users\THINK\Desktop\CV-Project\Debug\FPSGames.exe

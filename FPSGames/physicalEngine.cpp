@@ -566,7 +566,7 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 
 
 void myBulletEngine::colisionDetect(glm::vec3 look, Camera camera){
-	double scalar = 1000;
+	double scalar = 1000*2;
 	glm::vec3 look_nor = glm::normalize(look);
 	// 延长指向击打点
 	glm::vec3 look_ahead = glm::vec3(look_nor.x * scalar, look_nor.y * scalar, look_nor.z * scalar);

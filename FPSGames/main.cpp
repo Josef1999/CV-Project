@@ -4,7 +4,7 @@
 //                p.s. 地图是真的丑
 
 //#define DEBUG_WITHOUT_BULLET_MAP
-
+//#define DEBUG_WITHOUT_CUBE_BULLET
 
 #include"include/glad/glad.h"
 
@@ -271,10 +271,13 @@ int main()
 
 		// 渲染物理
 		my_bt.renderMyMap(objModel, shader);
+
+#ifdef DEBUG_WITHOUT_CUBE_BULLET
 		for (int i = 0; i < my_bt.bodies.size(); i++)
 		{
 			renderSphere(my_bt.bodies[i], shader, cubeVAO);
 		}
+#endif // DEBUG_WITHOUT_BULLET_MAP
 
 		my_bt.renderEnemy(enemyModel, shader);
 		my_bt.renderPlayer(shader, camera);

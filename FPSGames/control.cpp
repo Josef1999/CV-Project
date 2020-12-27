@@ -163,6 +163,7 @@ void handleKeyInput(GLFWwindow* window)
         glm::vec3 look = camera.Front;
         std::cout << "camera.Front: " << camera.Front.x << "," << camera.Front.y << "," << camera.Front.z << std::endl;
         my_bt.colisionDetect(look, camera);
+
         btRigidBody* sphere = my_bt.addSphere(1.0, camera.Position.x + look.x * 3, camera.Position.y + look.y * 3, camera.Position.z + look.z * 3, 1.0);
         sphere->setLinearVelocity(btVector3(200 * look.x, 200 * look.y, 200 * look.z));
     }

@@ -1,30 +1,99 @@
 ﻿  main.cpp
-C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-C:\Users\THINK\Desktop\CV-Project\FPSGames\include\learnopengl\model.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-F:\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
-C:\Users\THINK\Desktop\CV-Project\FPSGames\include\glad\glad.h(32): message : 参见“APIENTRY”的前一个定义
-C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(197,24): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(267,21): warning C4018: “<”: 有符号/无符号不匹配
-C:\Users\THINK\Desktop\CV-Project\FPSGames\main.cpp(396,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+D:\资料\CV-Project\FPSGames\main.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\资料\CV-Project\FPSGames\include\learnopengl\model.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005: “APIENTRY”: 宏重定义
+D:\资料\CV-Project\FPSGames\include\glad\glad.h(32): message : 参见“APIENTRY”的前一个定义
+D:\资料\CV-Project\FPSGames\main.cpp(197,24): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
+D:\资料\CV-Project\FPSGames\main.cpp(248,21): warning C4018: “<”: 有符号/无符号不匹配
+D:\资料\CV-Project\FPSGames\main.cpp(274,21): warning C4018: “<”: 有符号/无符号不匹配
+D:\资料\CV-Project\FPSGames\main.cpp(403,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
 LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
   正在生成代码
-  20 of 1937 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
+  1 of 1945 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    13 functions had inline decision re-evaluated but remain unchanged
+    7 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
-glfw3.lib(context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(context.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(init.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(init.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(input.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(input.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(monitor.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(monitor.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(vulkan.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(vulkan.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(window.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(window.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(win32_init.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_init.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(win32_joystick.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_joystick.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(win32_monitor.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_monitor.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(win32_time.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_time.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(win32_thread.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_thread.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(win32_window.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_window.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(wgl_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(wgl_context.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(egl_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(egl_context.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-glfw3.lib(osmesa_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(osmesa_context.obj)”或在“C:\Users\THINK\Desktop\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-  FPSGames.vcxproj -> C:\Users\THINK\Desktop\CV-Project\Debug\FPSGames.exe
+glfw3.lib(context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(context.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(init.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(init.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(input.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(input.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(monitor.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(monitor.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(vulkan.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(vulkan.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(window.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(window.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_init.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_init.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_joystick.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_joystick.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_monitor.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_monitor.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_time.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_time.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_thread.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_thread.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(win32_window.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(win32_window.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(wgl_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(wgl_context.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(egl_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(egl_context.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+glfw3.lib(osmesa_context.obj) : warning LNK4099: 未找到 PDB“glfw.pdb”(使用“glfw3.lib(osmesa_context.obj)”或在“D:\资料\CV-Project\Debug\glfw.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btCollisionAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btCollisionAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btDbvt.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btDbvt.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btDbvtBroadphase.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btDbvtBroadphase.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btDispatcher.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btDispatcher.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btOverlappingPairCache.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btOverlappingPairCache.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btQuantizedBvh.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btQuantizedBvh.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btActivatingCollisionAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btActivatingCollisionAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btBoxBoxCollisionAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btBoxBoxCollisionAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btBoxBoxDetector.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btBoxBoxDetector.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btCollisionDispatcher.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btCollisionDispatcher.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btCollisionObject.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btCollisionObject.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btCollisionWorld.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btCollisionWorld.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btCompoundCollisionAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btCompoundCollisionAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btCompoundCompoundCollisionAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btCompoundCompoundCollisionAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btConvexConcaveCollisionAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btConvexConcaveCollisionAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btConvexConvexAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btConvexConvexAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btConvexPlaneCollisionAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btConvexPlaneCollisionAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btDefaultCollisionConfiguration.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btDefaultCollisionConfiguration.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btEmptyCollisionAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btEmptyCollisionAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btGhostObject.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btGhostObject.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btHashedSimplePairCache.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btHashedSimplePairCache.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btManifoldResult.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btManifoldResult.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btSimulationIslandManager.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btSimulationIslandManager.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btSphereSphereCollisionAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btSphereSphereCollisionAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btSphereTriangleCollisionAlgorithm.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btSphereTriangleCollisionAlgorithm.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btUnionFind.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btUnionFind.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(SphereTriangleDetector.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(SphereTriangleDetector.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btBoxShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btBoxShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btBvhTriangleMeshShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btBvhTriangleMeshShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btCapsuleShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btCapsuleShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btCollisionShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btCollisionShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btConcaveShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btConcaveShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btConvexHullShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btConvexHullShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btConvexInternalShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btConvexInternalShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btConvexPolyhedron.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btConvexPolyhedron.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btConvexShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btConvexShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btMiniSDF.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btMiniSDF.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btOptimizedBvh.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btOptimizedBvh.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btPolyhedralConvexShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btPolyhedralConvexShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btSdfCollisionShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btSdfCollisionShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btSphereShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btSphereShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btStaticPlaneShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btStaticPlaneShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btTriangleCallback.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btTriangleCallback.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btTriangleMeshShape.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btTriangleMeshShape.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btContinuousConvexCollision.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btContinuousConvexCollision.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btConvexCast.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btConvexCast.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btGjkConvexCast.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btGjkConvexCast.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btGjkEpa2.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btGjkEpa2.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btGjkEpaPenetrationDepthSolver.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btGjkEpaPenetrationDepthSolver.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btGjkPairDetector.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btGjkPairDetector.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btMinkowskiPenetrationDepthSolver.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btMinkowskiPenetrationDepthSolver.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btPersistentManifold.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btPersistentManifold.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btRaycastCallback.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btRaycastCallback.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btSubSimplexConvexCast.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btSubSimplexConvexCast.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btVoronoiSimplexSolver.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btVoronoiSimplexSolver.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletCollision_Debug.lib(btPolyhedralContactClipping.obj) : warning LNK4099: 未找到 PDB“BulletCollision.pdb”(使用“BulletCollision_Debug.lib(btPolyhedralContactClipping.obj)”或在“D:\资料\CV-Project\Debug\BulletCollision.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletDynamics_Debug.lib(btKinematicCharacterController.obj) : warning LNK4099: 未找到 PDB“BulletDynamics.pdb”(使用“BulletDynamics_Debug.lib(btKinematicCharacterController.obj)”或在“D:\资料\CV-Project\Debug\BulletDynamics.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletDynamics_Debug.lib(btConeTwistConstraint.obj) : warning LNK4099: 未找到 PDB“BulletDynamics.pdb”(使用“BulletDynamics_Debug.lib(btConeTwistConstraint.obj)”或在“D:\资料\CV-Project\Debug\BulletDynamics.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletDynamics_Debug.lib(btGeneric6DofConstraint.obj) : warning LNK4099: 未找到 PDB“BulletDynamics.pdb”(使用“BulletDynamics_Debug.lib(btGeneric6DofConstraint.obj)”或在“D:\资料\CV-Project\Debug\BulletDynamics.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletDynamics_Debug.lib(btSequentialImpulseConstraintSolver.obj) : warning LNK4099: 未找到 PDB“BulletDynamics.pdb”(使用“BulletDynamics_Debug.lib(btSequentialImpulseConstraintSolver.obj)”或在“D:\资料\CV-Project\Debug\BulletDynamics.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletDynamics_Debug.lib(btTypedConstraint.obj) : warning LNK4099: 未找到 PDB“BulletDynamics.pdb”(使用“BulletDynamics_Debug.lib(btTypedConstraint.obj)”或在“D:\资料\CV-Project\Debug\BulletDynamics.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletDynamics_Debug.lib(btDiscreteDynamicsWorld.obj) : warning LNK4099: 未找到 PDB“BulletDynamics.pdb”(使用“BulletDynamics_Debug.lib(btDiscreteDynamicsWorld.obj)”或在“D:\资料\CV-Project\Debug\BulletDynamics.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+BulletDynamics_Debug.lib(btRigidBody.obj) : warning LNK4099: 未找到 PDB“BulletDynamics.pdb”(使用“BulletDynamics_Debug.lib(btRigidBody.obj)”或在“D:\资料\CV-Project\Debug\BulletDynamics.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+LinearMath_Debug.lib(btAlignedAllocator.obj) : warning LNK4099: 未找到 PDB“LinearMath.pdb”(使用“LinearMath_Debug.lib(btAlignedAllocator.obj)”或在“D:\资料\CV-Project\Debug\LinearMath.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+LinearMath_Debug.lib(btConvexHullComputer.obj) : warning LNK4099: 未找到 PDB“LinearMath.pdb”(使用“LinearMath_Debug.lib(btConvexHullComputer.obj)”或在“D:\资料\CV-Project\Debug\LinearMath.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+LinearMath_Debug.lib(btGeometryUtil.obj) : warning LNK4099: 未找到 PDB“LinearMath.pdb”(使用“LinearMath_Debug.lib(btGeometryUtil.obj)”或在“D:\资料\CV-Project\Debug\LinearMath.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+LinearMath_Debug.lib(btQuickprof.obj) : warning LNK4099: 未找到 PDB“LinearMath.pdb”(使用“LinearMath_Debug.lib(btQuickprof.obj)”或在“D:\资料\CV-Project\Debug\LinearMath.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+LinearMath_Debug.lib(btVector3.obj) : warning LNK4099: 未找到 PDB“LinearMath.pdb”(使用“LinearMath_Debug.lib(btVector3.obj)”或在“D:\资料\CV-Project\Debug\LinearMath.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+  FPSGames.vcxproj -> D:\资料\CV-Project\Debug\FPSGames.exe

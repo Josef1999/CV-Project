@@ -221,9 +221,9 @@ int main()
 
 		// 定义光源视见体，即阴影生成范围的正交投影矩阵
 		glm::mat4 lightProjection = glm::ortho(
-			-200.0f, 200.0f,
-			-200.0f, 200.0f,
-			-200.0f, 200.0f);
+			-500.0f, 500.0f,
+			-500.0f, 500.0f,
+			-500.0f, 500.0f);
 		// TODO lightPos跟随相机位置进行移动，使相机周围的地方总会生成影子
 		glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), WORLD_UP);
 		lightSpaceMatrix = lightProjection * lightView;
@@ -238,10 +238,17 @@ int main()
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		//Shadow Render start
-		//renderGunAndCamera(curGun, cameraModel, depthShader);
-		//renderMap(mapModel, depthShader);
+		renderGunAndCamera(curGun, cameraModel, depthShader);
+		renderMap(mapModel, depthShader);
 
-		//my_bt.renderMyMap(objModel, depthShader);
+		my_bt.renderMyMap(objModel, depthShader);
+		my_bt.renderEnemy(enemyModel, depthShader);
+		my_bt.renderPlayer(depthShader, camera);
+		//curGun.Display(camera, depthShader);
+		for (int i = 0; i < my_bt.bodies.size(); i++)
+		{
+			renderSphere(my_bt.bodies[i], depthShader, cubeVAO);
+		}
 
 		// Render end
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

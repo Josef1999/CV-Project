@@ -3,7 +3,7 @@
 // 12.25 加入下蹲起立和收枪动画，加入连射，修复动画衔接BUG
 //                p.s. 地图是真的丑
 
-#define DEBUG_WITHOUT_BULLET_MAP
+//#define DEBUG_WITHOUT_BULLET_MAP
 
 
 #include"include/glad/glad.h"

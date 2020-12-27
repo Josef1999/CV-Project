@@ -265,7 +265,7 @@ btRigidBody* myBulletEngine::addEnemy(float scale, float x, float y, float z, fl
 	t.setOrigin(btVector3(x, y, z));
 	//btBoxShape::btBoxShape(const btVector3 & boxHalfExtents)
 	//生成形状
-	btBoxShape* sphere = new btBoxShape(btVector3(1.0f* scale,2.4f* scale,1.0f* scale));
+	btBoxShape* sphere = new btBoxShape(btVector3(1.0f* scale,3.0f* scale,1.0f* scale));
 	btVector3 inertia(0, 0, 0);
 	//质量为零即静态物体
 	if (mass != 0.0) {

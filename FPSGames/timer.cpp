@@ -1,5 +1,6 @@
 #pragma once
 #include "timer.h"
+#include "iostream"
 
 Timer::Timer()
 {

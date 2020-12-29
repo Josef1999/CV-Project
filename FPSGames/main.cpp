@@ -18,6 +18,8 @@
 #include "include/learnopengl/shader_m.h"
 #include "include/stb_image.h"
 #include <iostream>
+//	#include <irrKlang.h>
+#include "Audio.h"
 
 /**bullet*/
 #include <stdio.h>
@@ -38,7 +40,9 @@
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "assimp.lib")
 #pragma comment(lib, "freetype.lib")
+#pragma comment(lib, "irrKlang.lib")
 
+extern irrklang::ISoundEngine* engine;
 
 //  Text Rendering
 std::vector<Text> textObjects;
@@ -136,7 +140,11 @@ int main()
 
 	Model enemyModel(FileSystem::getPath("asset/models/obj/Enemy/enemy.obj"));//Castle Tower.obj
 
-
+	//	背景音乐, 循环播放, 如果觉得声音太大, 可以按照如下方式调节, 参数范围0~1
+	irrklang::ISound* bgm_sound = engine->play2D("asset/Audio/BGM.mp3", true, false, true);
+	if (bgm_sound)
+		bgm_sound->setVolume(0);	//	0.3
+	
 	//初始化物理引擎
 	my_bt.addGround();
 #ifdef DEBUG_WITHOUT_BULLET_MAP
@@ -157,6 +165,7 @@ int main()
 	//	put quads and text texture rendering after gun rendering
 	quadsTextureInit(quadsObjects, quadsObjectsPos, quadsSize);
 	textTextureInit(textShader, textObjectsPos, textObjects);
+	textObjects[0].SetText(std::to_string(curGun.GetMaxAmmo()));
 
 	shader.use();
 	shader.setInt("diffuseTexture", 0);
@@ -283,6 +292,7 @@ int main()
 
 		//  Text Rendering
 		renderGUI(textShader, quadsShader, quadsObjects, textObjects, textObjectsPos);
+		textObjects[0].SetText(std::to_string(curGun.GetCurAmmo()));
 
 		// 交换缓冲区和调查IO事件（按下的按键,鼠标移动等）
 		glfwSwapBuffers(window);
@@ -291,6 +301,19 @@ int main()
 		glfwPollEvents();
 	}
 	//my_bt.btExit();
+
+	if (bgm_sound)
+		bgm_sound->drop();
+
+	if (walk_sound)
+		walk_sound->drop();
+	
+	if (run_sound)
+		run_sound->drop();
+
+	if (engine) {
+		engine->drop();
+	}
 
 	// 关闭glfw
 	glfwTerminate();

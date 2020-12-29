@@ -73,7 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\include\freetype2;$(ProjectDir)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\include\freetype2;$(ProjectDir)\include;$(ProjectDir)\include\irrKlang;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)\lib\freetype2;$(ProjectDir)\lib;$(ProjectDir)\lib\bullet;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -104,7 +104,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalLibraryDirectories>lib;lib\bullet;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;assimp.lib;freetype.lib;Bullet2FileLoader_Debug.lib;BulletCollision_Debug.lib;Bullet3Collision_Debug.lib;BulletDynamics_Debug.lib;Bullet3Common_Debug.lib;BulletInverseDynamics_Debug.lib;Bullet3Dynamics_Debug.lib;BulletSoftBody_Debug.lib;Bullet3Geometry_Debug.lib;LinearMath_Debug.lib;Bullet3OpenCL_clew_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;assimp.lib;freetype.lib;irrKlang.lib;Bullet2FileLoader_Debug.lib;BulletCollision_Debug.lib;Bullet3Collision_Debug.lib;BulletDynamics_Debug.lib;Bullet3Common_Debug.lib;BulletInverseDynamics_Debug.lib;Bullet3Dynamics_Debug.lib;BulletSoftBody_Debug.lib;Bullet3Geometry_Debug.lib;LinearMath_Debug.lib;Bullet3OpenCL_clew_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="control.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="gun.h" />

@@ -1,11 +1,15 @@
 #include "gun.h"
 #include "universal.h"
 #include "GLFW/glfw3.h"
+
+#include <irrKlang.h>
+extern irrklang::ISoundEngine* engine;
+
 Gun::Gun(string const& ModelPath, int MaxAmmo, int Damage): _GunModel(ModelPath)
 {
 	_MaxAmmo = MaxAmmo;
 	_Damage = Damage;
-	_CurAmmo = 0;
+	_CurAmmo = _MaxAmmo;
     _Animation_status = Gun_Animation::Idle;
     _Idle_status = Idle_Mode::Hip_Fire;
 }
@@ -98,6 +102,9 @@ void Gun::Display_FileGun(Camera& camera, Shader& shader)
     float curTimer = _Animation_Timer.GetTimerSec();
     if (curTimer > 0.1)
     {
+        //  engine->play2D("asset/Audio/shoot.wav", false);
+        engine->play2D("asset/Audio/AR_Fired.wav", false);
+        _CurAmmo = _CurAmmo > 0 ? _CurAmmo - 1 : 0;
         curTimer = 0.1 ;
         Shootcount = 0;
         AimCount = 0;
@@ -204,6 +211,7 @@ void Gun::Display_ReloadGun(Camera& camera, Shader& shader)
 
     if (curTimer > 0.5)
     {
+        engine->play2D("asset/Audio/Reloading.wav", false);
         curTimer = 0.5;
         Shootcount = 0;
         AimCount = 0;
@@ -265,18 +273,24 @@ void Gun::Display_AimGun(Camera& camera, Shader& shader)
 
 void Gun::Display(Camera& camera, Shader& shader)
 {
-    std::cout << MouseEvent << std::endl;
+    //  std::cout << MouseEvent << std::endl;
 
     if (MouseEvent == 0xff)
     {
         if (_Animation_status == Gun_Animation::Idle)
             Display_HoldGun(camera, shader);
-        if (_Animation_status == Gun_Animation::Fire)
-            Display_FileGun(camera, shader);
+        if (_Animation_status == Gun_Animation::Fire){
+            if (_CurAmmo > 0)
+                Display_FileGun(camera, shader);
+            else
+                Display_HoldGun(camera, shader);
+        }
         if (_Animation_status == Gun_Animation::Run)
             Display_RunGun(camera, shader);
-        if (_Animation_status == Gun_Animation::Reload)
+        if (_Animation_status == Gun_Animation::Reload){
             Display_ReloadGun(camera, shader);
+            _CurAmmo = _MaxAmmo;
+        }
         if (_Animation_status == Gun_Animation::Aim)
             Display_AimGun(camera, shader);
 

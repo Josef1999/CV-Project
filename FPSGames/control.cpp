@@ -6,12 +6,40 @@
 // ---------------------------------
 extern myBulletEngine my_bt;
 
+#include <irrKlang.h>
+extern irrklang::ISoundEngine* engine;
+
+#include "timer.h"
+extern irrklang::ISound* walk_sound;
+extern irrklang::ISound* run_sound;
+
+
 void handleKeyInput(GLFWwindow* window)
 {
     // escÍË³ö
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
+
+    static Timer move_sound_timer;
+
+    if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS
+    || glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS
+    || glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS
+    || glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
+        move_sound_timer.StartTimer();
+        //  walk_sound->setIsPaused(false);
+    }
+    else{
+        if (walk_sound){
+        move_sound_timer.StopTimer();
+        float time_interval = move_sound_timer.GetTimerSec();
+        //  std::cout << "test: " << time_interval1 << std::endl;
+        if (time_interval > 0.3)
+            walk_sound->setIsPaused(true);
+            run_sound->setIsPaused(true);
+        }
+    }
 
     //½ÇÉ«
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE) {
@@ -91,12 +119,14 @@ void handleKeyInput(GLFWwindow* window)
         {
             if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
             {
+                run_sound->setIsPaused(false);
                 my_bt.movePlayer(_HIGHSPEED, deltaTime);
                 MouseEvent = GLFW_KEY_LEFT_SHIFT;
                 Movecount++;
             }
             else
             {
+                walk_sound->setIsPaused(false);
                 my_bt.movePlayer(_FORWARD, deltaTime);
                 Movecount = 0;
             }
@@ -124,7 +154,6 @@ void handleKeyInput(GLFWwindow* window)
                 MouseEvent = 0xff;
                 Movecount = 0;
             }
-                
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         {

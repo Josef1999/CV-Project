@@ -11,6 +11,9 @@
 #include "include/stb_image.h"
 #include <iostream>
 
+#include <irrKlang.h>
+extern irrklang::ISoundEngine* engine;
+
 /**bullet*/
 #include <stdio.h>
 #include "btBulletDynamicsCommon.h"
@@ -581,6 +584,7 @@ void myBulletEngine::colisionDetect(glm::vec3 look, Camera camera){
 	world->rayTest(btFrom, btTo, res); // m_btWorld is btDiscreteDynamicsWorld
 
 	if (res.hasHit()) {
+		engine->play2D("asset/Audio/EnemyHit.wav", false);
 		int get_num = res.m_collisionObject->getCollisionShape()->getUserIndex();
 		switch (abs(get_num))
 		{

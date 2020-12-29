@@ -143,7 +143,7 @@ int main()
 	//	背景音乐, 循环播放, 如果觉得声音太大, 可以按照如下方式调节, 参数范围0~1
 	irrklang::ISound* bgm_sound = engine->play2D("asset/Audio/BGM.mp3", true, false, true);
 	if (bgm_sound)
-		bgm_sound->setVolume(0);	//	0.3
+		bgm_sound->setVolume(0.3);	//	0.3
 	
 	//初始化物理引擎
 	my_bt.addGround();

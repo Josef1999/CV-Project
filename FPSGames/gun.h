@@ -7,7 +7,17 @@ enum Gun_Animation
 {
 	Idle,
 	Fire,
-	Run
+	Run,
+	StopRun,
+	Aim,
+	StopAim,
+	Reload
+};
+
+enum Idle_Mode
+{
+	Hip_Fire,
+	ADS_Aim
 };
 
 /*
@@ -22,8 +32,10 @@ private:
 	Model _GunModel;
 	int _CurAmmo, _MaxAmmo;
 	int _Damage;
+	int _Stop;
 	Timer _Animation_Timer;
 	Gun_Animation _Animation_status;
+	Idle_Mode _Idle_status;
 	void GunRotate(glm::mat4& modelMatrix, const glm::vec3& Point, float degree);
 public:
 	Gun() = delete;
@@ -36,5 +48,8 @@ public:
 	void Display_HoldGun(Camera& camera, Shader& shader);
 	void Display_FileGun(Camera& camera, Shader& shader);
 	void Display_RunGun(Camera& camera, Shader& shader);
+	void Display_StopRun(Camera& camera, Shader& shader);
+	void Display_ReloadGun(Camera& camera, Shader& shader);
+	void Display_AimGun(Camera& camera, Shader& shader);
 	void Display(Camera& camera, Shader& shader);
 };

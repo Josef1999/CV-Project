@@ -11,6 +11,9 @@
 #include "include/stb_image.h"
 #include <iostream>
 
+#include <irrKlang.h>
+extern irrklang::ISoundEngine* engine;
+
 /**bullet*/
 #include <stdio.h>
 #include "btBulletDynamicsCommon.h"
@@ -26,7 +29,7 @@
 #include "control.h"
 #include "shaderRender.h"
 #include "physicalEngine.h"
-
+#include "universal.h"
 
 enum ObjIndex
 {
@@ -197,7 +200,7 @@ void myBulletEngine::addMap(Model& model) {
 void myBulletEngine::addPlayer() {
 	btTransform t;
 	t.setIdentity();
-	t.setOrigin(btVector3(10, 0, 0));
+	t.setOrigin(btVector3(100, 0, 0));
 
 	m_ghostObject = new btPairCachingGhostObject();
 	m_ghostObject->setWorldTransform(t);
@@ -265,7 +268,7 @@ btRigidBody* myBulletEngine::addEnemy(float scale, float x, float y, float z, fl
 	t.setOrigin(btVector3(x, y, z));
 	//btBoxShape::btBoxShape(const btVector3 & boxHalfExtents)
 	//生成形状
-	btBoxShape* sphere = new btBoxShape(btVector3(1.0f* scale,2.4f* scale,1.0f* scale));
+	btBoxShape* sphere = new btBoxShape(btVector3(1.0f* scale,3.0f* scale,1.0f* scale));
 	btVector3 inertia(0, 0, 0);
 	//质量为零即静态物体
 	if (mass != 0.0) {
@@ -331,9 +334,39 @@ void myBulletEngine::renderPlayer(Shader& shader, Camera& camera)
 
 	glm::mat4 positionTrans = glm::make_mat4(mat);
 
-	camera.Position[0] = positionTrans[3][0];
-	camera.Position[1] = positionTrans[3][1]+5.0f;
-	camera.Position[2] = positionTrans[3][2];
+	if (BodyEvent == GLFW_KEY_LEFT_CONTROL)//下蹲
+	{
+		if (Bodycount == 1)
+			_Cam_Animation_Timer.StartTimer();
+		_Cam_Animation_Timer.StopTimer();
+		float curTimer = _Cam_Animation_Timer.GetTimerSec();
+		if (curTimer > 0.2)
+			curTimer = 0.2;
+		float Total_Timer = 0.2;
+		float Y_Offset = 5.0f;
+		//cout << curTimer << endl;
+		camera.Position[0] = positionTrans[3][0];
+		camera.Position[1] = positionTrans[3][1] + 5.0f - curTimer / Total_Timer * Y_Offset;
+		camera.Position[2] = positionTrans[3][2];
+	}
+	else//起立
+	{
+		if (Bodycount != 0)
+		{
+			Bodycount = 0;
+			_Cam_Animation_Timer.StartTimer();
+		}
+		_Cam_Animation_Timer.StopTimer();
+		float curTimer = _Cam_Animation_Timer.GetTimerSec();
+		if (curTimer > 0.2)
+			curTimer = 0.2;
+		float Total_Timer = 0.2;
+		float Y_Offset = 5.0f;
+		//cout << curTimer << endl;
+		camera.Position[0] = positionTrans[3][0];
+		camera.Position[1] = positionTrans[3][1] + curTimer / Total_Timer * Y_Offset;
+		camera.Position[2] = positionTrans[3][2];
+	}
 	glm::mat4 model;
 	//    model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
 	model = positionTrans * model;
@@ -416,7 +449,7 @@ void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
 	{
 		
 		btScalar walkVelocity = btScalar(1.1) * 8.0 * 2; // 4 km/h -> 1.1 m/s
-		btScalar walkSpeed = walkVelocity * deltaTime * 2.0f;
+		btScalar walkSpeed = walkVelocity * deltaTime * 2.0f* SpeedAdjust;
 		btVector3 walkDirection = btVector3(0.0, 0.0, 0.0);
 
 		//获取本地坐标向量,并且单位化
@@ -462,7 +495,7 @@ void myBulletEngine::movePlayer(Direction direction, float deltaTime) {
 		}
 		if (direction == _JUMP && m_character && m_character->canJump())
 		{
-			btVector3 v = btVector3(0, 100/2, 0);
+			btVector3 v = btVector3(0, 100/2+20, 0);
 			m_character->jump(v);
 			//按照方向移动角色
 
@@ -477,7 +510,7 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 	if (world)
 	{
 		btVector3 walkDirection = btVector3(0.0, 0.0, 0.0);
-		btScalar walkVelocity = btScalar(1.1) * 8.0 *2; // 4 km/h -> 1.1 m/s
+		btScalar walkVelocity = btScalar(1.1) * 8.0 *2* SpeedAdjust; // 4 km/h -> 1.1 m/s
 		btScalar walkSpeed = walkVelocity * deltaTime * 2.0f;
 
 		//获取本地坐标向量,并且单位化
@@ -536,7 +569,7 @@ void myBulletEngine::movePlayer(Direction direction1, Direction direction2, floa
 
 
 void myBulletEngine::colisionDetect(glm::vec3 look, Camera camera){
-	double scalar = 1000;
+	double scalar = 1000*2;
 	glm::vec3 look_nor = glm::normalize(look);
 	// 延长指向击打点
 	glm::vec3 look_ahead = glm::vec3(look_nor.x * scalar, look_nor.y * scalar, look_nor.z * scalar);
@@ -551,6 +584,7 @@ void myBulletEngine::colisionDetect(glm::vec3 look, Camera camera){
 	world->rayTest(btFrom, btTo, res); // m_btWorld is btDiscreteDynamicsWorld
 
 	if (res.hasHit()) {
+		engine->play2D("asset/Audio/EnemyHit.wav", false);
 		int get_num = res.m_collisionObject->getCollisionShape()->getUserIndex();
 		switch (abs(get_num))
 		{

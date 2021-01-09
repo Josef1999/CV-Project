@@ -4,7 +4,7 @@
 #include "btBulletDynamicsCommon.h"
 #include <BulletDynamics\Character\btKinematicCharacterController.h>
 #include <BulletCollision\CollisionDispatch\btGhostObject.h>
-
+#include "timer.h"
 
 class myBulletEngine {
 public:
@@ -14,7 +14,7 @@ public:
 	btCollisionConfiguration* collisionConfiguration;
 	btBroadphaseInterface* broadphase;
 	btConstraintSolver* solver;
-
+	Timer _Cam_Animation_Timer;//相机动画计时器，用于下蹲起立
 	std::vector<btRigidBody*> bodies;
 	std::vector<btRigidBody*> enemies;
 	std::vector<btRigidBody*> my_map_obj;

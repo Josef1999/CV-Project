@@ -1,9 +1,10 @@
 // 12.23 加入奔跑动作，修复子弹射击枪口动画失效
 // 12.25 加入敌人， 敌人被击中会有弹跳反馈（太远好像不行...）
+// 12.25 加入下蹲起立和收枪动画，加入连射，修复动画衔接BUG
 //                p.s. 地图是真的丑
 
-#define DEBUG_WITHOUT_BULLET_MAP
-
+//#define DEBUG_WITHOUT_BULLET_MAP
+//#define DEBUG_WITHOUT_CUBE_BULLET
 
 #include"include/glad/glad.h"
 
@@ -17,6 +18,8 @@
 #include "include/learnopengl/shader_m.h"
 #include "include/stb_image.h"
 #include <iostream>
+//	#include <irrKlang.h>
+#include "Audio.h"
 
 /**bullet*/
 #include <stdio.h>
@@ -37,7 +40,9 @@
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "assimp.lib")
 #pragma comment(lib, "freetype.lib")
+#pragma comment(lib, "irrKlang.lib")
 
+extern irrklang::ISoundEngine* engine;
 
 //  Text Rendering
 std::vector<Text> textObjects;
@@ -135,22 +140,20 @@ int main()
 
 	Model enemyModel(FileSystem::getPath("asset/models/obj/Enemy/enemy.obj"));//Castle Tower.obj
 
-
+	//	背景音乐, 循环播放, 如果觉得声音太大, 可以按照如下方式调节, 参数范围0~1
+	irrklang::ISound* bgm_sound = engine->play2D("asset/Audio/BGM.mp3", true, false, true);
+	if (bgm_sound)
+		bgm_sound->setVolume(0.3);	//	0.3
+	
 	//初始化物理引擎
 	my_bt.addGround();
 #ifdef DEBUG_WITHOUT_BULLET_MAP
 	my_bt.addMap(objModel);
 #endif // DEBUG_WITHOUT_BULLET_MAP
 
-	//my_bt.addSphere(1.0, 20, 50, 0, 1.0);
-	//my_bt.addSphere(1.0, 30, 30, 0, 1.0);
-	//my_bt.addSphere(1.0, 40, 90, 0, 1.0);
-	//my_bt.addSphere(1.0, 50, 100, 0, 1.0);
 
-	my_bt.addEnemy(2.0, 20, 50, 0, 100.0);
-	my_bt.addEnemy(2.0, 30, 30, 0, 100.0);
-	my_bt.addEnemy(2.0, 40, 90, 0, 100.0);
-	my_bt.addEnemy(2.0, 50, 100, 0, 100.0);
+	my_bt.addEnemy(2.0, 220, 50, 0, 100.0);
+	my_bt.addEnemy(2.0, 230, 30, -100, 100.0);
 
 	my_bt.addPlayer();
 
@@ -162,6 +165,7 @@ int main()
 	//	put quads and text texture rendering after gun rendering
 	quadsTextureInit(quadsObjects, quadsObjectsPos, quadsSize);
 	textTextureInit(textShader, textObjectsPos, textObjects);
+	textObjects[0].SetText(std::to_string(curGun.GetMaxAmmo()));
 
 	shader.use();
 	shader.setInt("diffuseTexture", 0);
@@ -209,9 +213,9 @@ int main()
 
 		// 定义光源视见体，即阴影生成范围的正交投影矩阵
 		glm::mat4 lightProjection = glm::ortho(
-			-200.0f, 200.0f,
-			-200.0f, 200.0f,
-			-200.0f, 200.0f);
+			-500.0f, 500.0f,
+			-500.0f, 500.0f,
+			-500.0f, 500.0f);
 		// TODO lightPos跟随相机位置进行移动，使相机周围的地方总会生成影子
 		glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), WORLD_UP);
 		lightSpaceMatrix = lightProjection * lightView;
@@ -226,10 +230,17 @@ int main()
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		//Shadow Render start
-		//renderGunAndCamera(curGun, cameraModel, depthShader);
-		//renderMap(mapModel, depthShader);
+		renderGunAndCamera(curGun, cameraModel, depthShader);
+		renderMap(mapModel, depthShader);
 
-		//my_bt.renderMyMap(objModel, depthShader);
+		my_bt.renderMyMap(objModel, depthShader);
+		my_bt.renderEnemy(enemyModel, depthShader);
+		my_bt.renderPlayer(depthShader, camera);
+		//curGun.Display(camera, depthShader);
+		for (int i = 0; i < my_bt.bodies.size(); i++)
+		{
+			renderSphere(my_bt.bodies[i], depthShader, cubeVAO);
+		}
 
 		// Render end
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -252,10 +263,13 @@ int main()
 
 		// 渲染物理
 		my_bt.renderMyMap(objModel, shader);
+
+#ifdef DEBUG_WITHOUT_CUBE_BULLET
 		for (int i = 0; i < my_bt.bodies.size(); i++)
 		{
 			renderSphere(my_bt.bodies[i], shader, cubeVAO);
 		}
+#endif // DEBUG_WITHOUT_BULLET_MAP
 
 		my_bt.renderEnemy(enemyModel, shader);
 		my_bt.renderPlayer(shader, camera);
@@ -278,6 +292,7 @@ int main()
 
 		//  Text Rendering
 		renderGUI(textShader, quadsShader, quadsObjects, textObjects, textObjectsPos);
+		textObjects[0].SetText(std::to_string(curGun.GetCurAmmo()));
 
 		// 交换缓冲区和调查IO事件（按下的按键,鼠标移动等）
 		glfwSwapBuffers(window);
@@ -286,6 +301,19 @@ int main()
 		glfwPollEvents();
 	}
 	//my_bt.btExit();
+
+	if (bgm_sound)
+		bgm_sound->drop();
+
+	if (walk_sound)
+		walk_sound->drop();
+	
+	if (run_sound)
+		run_sound->drop();
+
+	if (engine) {
+		engine->drop();
+	}
 
 	// 关闭glfw
 	glfwTerminate();
